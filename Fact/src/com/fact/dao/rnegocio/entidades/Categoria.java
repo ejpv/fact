@@ -39,6 +39,4 @@ public class Categoria {
     public void setDetalle(String detalle) {
         this.detalle = detalle;
     }
-    
-    
 }

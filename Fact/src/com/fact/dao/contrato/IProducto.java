@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public interface IProducto {
-    int  insertar(Producto producto);
+    int insertar(Producto producto);
     int modificar(Producto producto);
     int eliminar(Producto producto);
     Producto obtener(int id)throws Exception;

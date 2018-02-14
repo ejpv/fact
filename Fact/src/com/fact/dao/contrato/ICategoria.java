@@ -13,7 +13,7 @@ import java.util.List;
  * @author Angel-Pc
  */
 public interface ICategoria {
-    int  insertar(Categoria categoria);
+    int insertar(Categoria categoria);
     int modificar(Categoria categoria);
     int eliminar(Categoria categoria);
     Categoria obtener(int id)throws Exception;

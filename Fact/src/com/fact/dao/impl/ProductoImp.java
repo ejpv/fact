@@ -2,8 +2,11 @@ package com.fact.dao.impl;
 
 import com.fact.accesoadatos.Conexion;
 import com.fact.accesoadatos.Parametro;
+import com.fact.dao.contrato.ICategoria;
 import com.fact.dao.contrato.IProducto;
+import com.fact.dao.rnegocio.entidades.Iva;
 import com.fact.dao.rnegocio.entidades.Producto;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,22 +54,136 @@ public class ProductoImp implements IProducto {
 
     @Override
     public int modificar(Producto producto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int modificado = 0;
+        String sql = "UPDATE public.producto\n" +
+        "   SET nombre=?, color=?, marca=?, \"tamaño\"=?, aroma=?, \n" +
+        "       fecha_caducacion=?, categoria=?, precio_compra=?, precio_venta=?, \n" +
+        "       precio_venta_cantidad=?, stock_cantidad=?, stock=?, precio_total_compra=?, \n" +
+        "       precio_total_venta=?, detalle=?\n" +
+        " WHERE codigo_producto = ?";
+        List<Parametro> prts = new ArrayList<>();
+        prts.add(new Parametro(1, producto.getNombre()));
+        prts.add(new Parametro(2, producto.getColor()));
+        prts.add(new Parametro(3, producto.getMarca()));
+        prts.add(new Parametro(4, producto.getTamaño()));
+        prts.add(new Parametro(5, producto.getAroma()));
+        prts.add(new Parametro(6, producto.getFechacaducacion()));
+        prts.add(new Parametro(7, producto.getCategoria().getCodigo()));
+        prts.add(new Parametro(8, producto.getPreciocompra()));
+        prts.add(new Parametro(9, producto.getPrecioventa()));
+        prts.add(new Parametro(10, producto.getPrecioventacantidad()));
+        prts.add(new Parametro(11, producto.getStockcantidad()));
+        prts.add(new Parametro(12, producto.getStock()));
+        prts.add(new Parametro(13, producto.getPreciototalcompra()));
+        prts.add(new Parametro(14, producto.getPreciototalventa()));
+        prts.add(new Parametro(15, producto.getDetalle()));
+        prts.add(new Parametro(16, producto.getCodigo()));
+        Conexion con = new Conexion();
+        try {
+            modificado = con.ejecutaComando(sql, prts);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return modificado;  
     }
 
     @Override
     public int eliminar(Producto producto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int numFilasAfectadas = 0;
+        String sql = "DELETE FROM producto WHERE codigo_producto=?";
+        List<Parametro> lstPar = new ArrayList<>();
+        lstPar.add(new Parametro(1, producto.getCodigo()));
+        Conexion con = new Conexion();
+        con.conectar();
+        try {
+            numFilasAfectadas = con.ejecutaComando(sql, lstPar);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.desconectar();
+        }
+        return numFilasAfectadas;
     }
 
     @Override
     public Producto obtener(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Producto pro = null;
+        ICategoria sqlCategoria = new CategoriaImp();
+        String sql = "SELECT codigo_producto, nombre, color, marca, \"tamaño\", aroma, fecha_caducacion, \n" +
+"       categoria, precio_compra, precio_venta, precio_venta_cantidad, \n" +
+"       stock_cantidad, stock, precio_total_compra, precio_total_venta, \n" +
+"       detalle\n" +
+"  FROM public.producto where codigo_producto=?";
+        Conexion con = new Conexion();
+        List<Parametro> lstPar = new ArrayList<>();
+        lstPar.add(new Parametro(1, id));
+        try {
+            ResultSet rst = con.ejecutarQuery(sql, lstPar);
+            while (rst.next()) {
+                pro = new Producto();
+                pro.setCodigo(rst.getInt(1));
+                pro.setNombre(rst.getString(2));
+                pro.setColor(rst.getString(3));
+                pro.setMarca(rst.getString(4));
+                pro.setTamaño(rst.getDouble(5));
+                pro.setAroma(rst.getString(6));
+                pro.setFechacaducacion(rst.getDate(7));
+                pro.setCategoria(sqlCategoria.obtener(rst.getInt(8)));
+                pro.setPreciocompra(rst.getDouble(9));
+                pro.setPrecioventa(rst.getDouble(10));
+                pro.setPrecioventacantidad(rst.getDouble(11));
+                pro.setStockcantidad(rst.getDouble(12));
+                pro.setStock(rst.getDouble(13));
+                pro.setPreciototalcompra(rst.getDouble(14));
+                pro.setPreciototalventa(rst.getDouble(15));                
+                pro.setDetalle(rst.getString(16));
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.desconectar();
+        }
+        return pro;
     }
 
     @Override
     public List<Producto> obtener() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Producto> lista = new ArrayList<>();
+        ICategoria sqlCategoria = new CategoriaImp();
+        String sql = "SELECT codigo_producto, nombre, color, marca, \"tamaño\", aroma, fecha_caducacion, \n" +
+"       categoria, precio_compra, precio_venta, precio_venta_cantidad, \n" +
+"       stock_cantidad, stock, precio_total_compra, precio_total_venta, \n" +
+"       detalle\n" +
+"  FROM public.producto";
+        Conexion con = new Conexion();
+        try {
+            ResultSet rst = con.ejecutarQuery(sql);
+            while (rst.next()) {
+                Producto pro = new Producto();
+                pro.setCodigo(rst.getInt(1));
+                pro.setNombre(rst.getString(2));
+                pro.setColor(rst.getString(3));
+                pro.setMarca(rst.getString(4));
+                pro.setTamaño(rst.getDouble(5));
+                pro.setAroma(rst.getString(6));
+                pro.setFechacaducacion(rst.getDate(7));
+                pro.setCategoria(sqlCategoria.obtener(rst.getInt(8)));
+                pro.setPreciocompra(rst.getDouble(9));
+                pro.setPrecioventa(rst.getDouble(10));
+                pro.setPrecioventacantidad(rst.getDouble(11));
+                pro.setStockcantidad(rst.getDouble(12));
+                pro.setStock(rst.getDouble(13));
+                pro.setPreciototalcompra(rst.getDouble(14));
+                pro.setPreciototalventa(rst.getDouble(15));
+                pro.setDetalle(rst.getString(16));
+                lista.add(pro);
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.desconectar();
+        }
+        return lista;
     }
 
 }

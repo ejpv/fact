@@ -7,7 +7,7 @@ import java.util.*;
 public class Conexion {
     private Connection con;
     final String DRIVER = "org.postgresql.Driver";
-    final String URL = "jdbc:postgresql://localhost:5432/fact";
+    final String URL = "jdbc:postgresql://localhost:5433/fact";
     final String USUARIO = "postgres";
     final String CLAVE = "1";
     

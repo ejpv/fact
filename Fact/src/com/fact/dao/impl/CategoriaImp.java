@@ -22,7 +22,7 @@ public class CategoriaImp implements ICategoria{
     @Override
     public int insertar(Categoria categoria) {
         int numFilasAfectadas = 0;
-        String sql = "INSERT INTO categoria(codigo_categoria, nombre, detalle)\n" +
+         String sql = "INSERT INTO categoria(codigo_categoria, nombre, detalle)\n" +
                 "    VALUES (?, ?, ?)";
         List<Parametro> lstPar = new ArrayList<>();
         lstPar.add(new Parametro(1, categoria.getCodigo()));

@@ -5,7 +5,7 @@ import com.fact.dao.rnegocio.entidades.*;
 import java.util.List;
 
 public interface ICliente {
-    int  insertar(Cliente cliente);
+    int insertar(Cliente cliente);
     int modificar(Cliente cliente);
     int eliminar(Cliente cliente);
     Cliente obtener(int id)throws Exception;
