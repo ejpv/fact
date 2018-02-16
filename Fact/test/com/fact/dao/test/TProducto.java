@@ -29,30 +29,30 @@ public class TProducto {
         int a=0;
         IProducto sqlProducto= new ProductoImp();
         ICategoria sqlCategoria = new CategoriaImp();
-        Producto producto= new Producto(2, "Llanta", "Negra :v", "La hora",15, "Nuevo", new Date(2019, 2, 13),sqlCategoria.obtener(2), 1, 1, 1, 1, 1, 1, 1, "sdfgh");
+        Producto producto= new Producto(101, "Foco", "Ninguno", "Toyota", 1, "Ninguno", new Date(2019, 02, 10), sqlCategoria.obtener(1), 1, 1, 1, 1, 1, "Ninguno");
     //INSERTAR
     int insertado=0;
         try {
             insertado= sqlProducto.insertar(producto);
         } catch (Exception e) {
+            System.err.println("insertar: " +  e.getMessage());
         }
         assertTrue(insertado>0);
     //LISTAR UNO
-    Producto obtenido=null;
         try {
-            obtenido = sqlProducto.obtener(2);
-            System.out.println(obtenido.getCodigo());
-            System.out.println(obtenido.getNombre()+ "   " + obtenido.getCategoria().getNombre());
+            Producto pro=sqlProducto.obtener(101);
+            System.out.println(producto.getNombre());
         } catch (Exception e) {
+            System.err.println("buscar: " +  e.getMessage());
         }
-        assertTrue(obtenido !=null);
+        assertTrue(producto !=null);
     //MODIFICAR
     int modificado=0;
     producto.setNombre("jahsdjahsd");
         try {
             modificado=sqlProducto.modificar(producto);
         } catch (Exception e) {
-            System.out.println(e.getCause());
+            System.err.println("modificar: " +  e.getMessage());
         }
         assertTrue(modificado>0);
     //LISTAR TODOS
@@ -64,6 +64,7 @@ public class TProducto {
                 System.out.println(tmp.getNombre()+ "   " + tmp.getCategoria().getNombre());
             }
         } catch (Exception e) {
+             System.err.println("listar: " +  e.getMessage());
         }
         assertTrue(lst.size() > 0);
     //ELIMINAR
@@ -71,6 +72,7 @@ public class TProducto {
         try {
             eliminado= sqlProducto.eliminar(producto);
         } catch (Exception e) {
+             System.err.println("eliminar: " +  e.getMessage());
         }
         assertTrue(eliminado>0);
     }

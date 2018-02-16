@@ -12,19 +12,17 @@ public class Producto {
     private String aroma;
     private Date fechacaducacion;
     private Categoria categoria;
-    private double preciocompra;
     private double precioventa;
     private double precioventacantidad;
     private double stockcantidad;
     private double stock;
-    private double preciototalcompra;
     private double preciototalventa;
     private String detalle;
 
     public Producto() {
     }
 
-    public Producto(int codigo, String nombre, String color, String marca, double tamaño, String aroma, Date fechacaducacion, Categoria categoria, double preciocompra, double precioventa, double precioventacantidad, double stockcantidad, double stock, double preciototalcompra, double preciototalventa, String detalle) {
+    public Producto(int codigo, String nombre, String color, String marca, double tamaño, String aroma, Date fechacaducacion, Categoria categoria, double precioventa, double precioventacantidad, double stockcantidad, double stock, double preciototalventa, String detalle) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.color = color;
@@ -33,12 +31,10 @@ public class Producto {
         this.aroma = aroma;
         this.fechacaducacion = fechacaducacion;
         this.categoria = categoria;
-        this.preciocompra = preciocompra;
         this.precioventa = precioventa;
         this.precioventacantidad = precioventacantidad;
         this.stockcantidad = stockcantidad;
         this.stock = stock;
-        this.preciototalcompra = preciototalcompra;
         this.preciototalventa = preciototalventa;
         this.detalle = detalle;
     }
@@ -107,14 +103,6 @@ public class Producto {
         this.categoria = categoria;
     }
 
-    public double getPreciocompra() {
-        return preciocompra;
-    }
-
-    public void setPreciocompra(double preciocompra) {
-        this.preciocompra = preciocompra;
-    }
-
     public double getPrecioventa() {
         return precioventa;
     }
@@ -147,14 +135,6 @@ public class Producto {
         this.stock = stock;
     }
 
-    public double getPreciototalcompra() {
-        return preciototalcompra;
-    }
-
-    public void setPreciototalcompra(double preciototalcompra) {
-        this.preciototalcompra = preciototalcompra;
-    }
-
     public double getPreciototalventa() {
         return preciototalventa;
     }
@@ -170,6 +150,7 @@ public class Producto {
     public void setDetalle(String detalle) {
         this.detalle = detalle;
     }
-    
+
+        
     
 }
