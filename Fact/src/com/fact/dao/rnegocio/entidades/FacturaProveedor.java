@@ -15,7 +15,7 @@ public class FacturaProveedor {
     public FacturaProveedor() {
     }
 
-    public FacturaProveedor(int numero, Date fecha, Proveedor Proveedor, double subtotal, double iva, double total) {
+    public FacturaProveedor(int numero, Date fecha, Proveedor proveedor, double subtotal, double iva, double total) {
         this.numero = numero;
         this.fecha = fecha;
         this.proveedor = proveedor;
@@ -44,7 +44,7 @@ public class FacturaProveedor {
         return proveedor;
     }
 
-    public void setProveedor(Proveedor Proveedor) {
+    public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
 

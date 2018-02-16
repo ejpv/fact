@@ -10,12 +10,12 @@ public class DetalleFacturaProveedor {
     private double subtotal;
     private Iva iva;
     private double total;
-    private FacturaCliente factura;
+    private FacturaProveedor factura;
 
     public DetalleFacturaProveedor() {
     }
 
-    public DetalleFacturaProveedor(int codigo, Producto producto, int cantidad, double precio, double subtotal, Iva iva, double total, FacturaCliente factura) {
+    public DetalleFacturaProveedor(int codigo, Producto producto, int cantidad, double precio, double subtotal, Iva iva, double total, FacturaProveedor factura) {
         this.codigo = codigo;
         this.producto = producto;
         this.cantidad = cantidad;
@@ -82,12 +82,14 @@ public class DetalleFacturaProveedor {
         this.total = total;
     }
 
-    public FacturaCliente getFactura() {
+    public FacturaProveedor getFactura() {
         return factura;
     }
 
-    public void setFactura(FacturaCliente factura) {
+    public void setFactura(FacturaProveedor factura) {
         this.factura = factura;
     }
+
+    
     
 }
