@@ -5,7 +5,6 @@
  */
 package com.fact.dao.test;
 
-import org.junit.Test;
 import com.fact.dao.contrato.ICliente;
 import com.fact.dao.impl.ClienteImp;
 import com.fact.dao.rnegocio.entidades.Cliente;

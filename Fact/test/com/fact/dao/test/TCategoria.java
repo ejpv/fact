@@ -63,7 +63,4 @@ public class TCategoria {
         assertTrue(eliminado>0);
     }
 
-    private void asserTrue(boolean b) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

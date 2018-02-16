@@ -29,7 +29,7 @@ public class TProducto {
         int a=0;
         IProducto sqlProducto= new ProductoImp();
         ICategoria sqlCategoria = new CategoriaImp();
-        Producto producto= new Producto(2, "Llanta", "Negra :v", "La hora",15, "Nuevo", new Date(2019, 2, 13),sqlCategoria.obtener(3), 1, 1, 1, 1, 1, 1, 1, "sdfgh");
+        Producto producto= new Producto(2, "Llanta", "Negra :v", "La hora",15, "Nuevo", new Date(2019, 2, 13),sqlCategoria.obtener(2), 1, 1, 1, 1, 1, 1, 1, "sdfgh");
     //INSERTAR
     int insertado=0;
         try {
