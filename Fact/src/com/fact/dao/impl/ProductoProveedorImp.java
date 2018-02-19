@@ -7,9 +7,12 @@ package com.fact.dao.impl;
 
 import com.fact.accesoadatos.Conexion;
 import com.fact.accesoadatos.Parametro;
+import com.fact.dao.contrato.IProducto;
 import com.fact.dao.contrato.IProductoProveedor;
+import com.fact.dao.contrato.IProveedor;
 import com.fact.dao.rnegocio.entidades.ProductoProveedor;
 import com.fact.dao.rnegocio.entidades.Proveedor;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,11 +95,64 @@ public class ProductoProveedorImp implements IProductoProveedor {
 
     @Override
     public ProductoProveedor obtener(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ProductoProveedor fac = null;
+        IProducto daopro = new ProductoImp();
+        IProveedor daoprov = new ProveedorImp();
+        String sql = "SELECT codigo, codigo_producto, codigo_proveedor, precio, cantidad, \n"
+                + "       iva, total, detalle\n"
+                + "  FROM public.producto_proveedor WHERE codigo=?";
+        Conexion con = new Conexion();
+        List<Parametro> lstPar = new ArrayList<>();
+        lstPar.add(new Parametro(1, id));
+        try {
+            ResultSet rst = con.ejecutarQuery(sql, lstPar);
+            while (rst.next()) {
+                fac = new ProductoProveedor();
+                fac.setCodigo(rst.getInt(1));
+                fac.setProducto(daopro.obtener(rst.getInt(2)));
+                fac.setProveedor(daoprov.obtener(rst.getInt(3)));
+                fac.setPrecio(rst.getDouble(4));
+                fac.setCantidad(rst.getInt(5));
+                fac.setIva(rst.getDouble(6));
+                fac.setTotal(rst.getDouble(7));
+                fac.setDetalle(rst.getString(8));
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.desconectar();
+        }
+        return fac;
     }
 
     @Override
     public List<ProductoProveedor> obtener() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<ProductoProveedor> lista = new ArrayList<>();
+        IProducto producto = new ProductoImp();
+        IProveedor proveedor = new ProveedorImp();
+        String sql = "SELECT codigo, codigo_producto, codigo_proveedor, precio, cantidad, \n"
+                + "       iva, total, detalle\n"
+                + "  FROM public.producto_proveedor";
+        Conexion con = new Conexion();
+        try {
+            ResultSet rst = con.ejecutarQuery(sql);
+            while (rst.next()) {
+                ProductoProveedor fac = new ProductoProveedor();
+                fac.setCodigo(rst.getInt(1));
+                fac.setProducto(producto.obtener(rst.getInt(2)));
+                fac.setProveedor(proveedor.obtener(rst.getInt(3)));
+                fac.setPrecio(rst.getDouble(4));
+                fac.setCantidad(rst.getInt(5));
+                fac.setIva(rst.getDouble(6));
+                fac.setTotal(rst.getDouble(7));
+                fac.setDetalle(rst.getString(8));
+                lista.add(fac);
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.desconectar();
+        }
+        return lista;
     }
 }
