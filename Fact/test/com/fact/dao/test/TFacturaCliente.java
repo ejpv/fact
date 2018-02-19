@@ -6,8 +6,10 @@
 package com.fact.dao.test;
 
 import com.fact.dao.contrato.ICliente;
+import com.fact.dao.contrato.IEmpleado;
 import com.fact.dao.contrato.IFacturaCliente;
 import com.fact.dao.impl.ClienteImp;
+import com.fact.dao.impl.EmpleadoImp;
 import com.fact.dao.impl.FacturaClienteImp;
 import com.fact.dao.rnegocio.entidades.FacturaCliente;
 import java.util.ArrayList;
@@ -27,8 +29,9 @@ public class TFacturaCliente {
     @Test
     public void test() throws Exception {
         ICliente sqlCliente = new ClienteImp();
+        IEmpleado sqlEmpleado=new EmpleadoImp();
         IFacturaCliente sqlFactura = new FacturaClienteImp();
-        FacturaCliente fac = new FacturaCliente(100, new Date(), sqlCliente.obtener(1), 1.2, 0.2, 1.4);
+        FacturaCliente fac = new FacturaCliente(100, new Date(), sqlCliente.obtener(1), 1.2, 0.2, 1.4,sqlEmpleado.obtener(1));
 //INSERTAR
         int insertados = 0;
         try {

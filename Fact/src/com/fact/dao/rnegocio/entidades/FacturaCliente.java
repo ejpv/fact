@@ -1,27 +1,28 @@
-
 package com.fact.dao.rnegocio.entidades;
 
 import java.util.Date;
 
-
 public class FacturaCliente {
+
     private int numero;
     private Date fecha;
     private Cliente cliente;
     private double subtotal;
     private double iva;
     private double total;
+    private Empleado empleado;
 
     public FacturaCliente() {
     }
 
-    public FacturaCliente(int numero, Date fecha, Cliente cliente, double subtotal, double iva, double total) {
+    public FacturaCliente(int numero, Date fecha, Cliente cliente, double subtotal, double iva, double total, Empleado empleado) {
         this.numero = numero;
         this.fecha = fecha;
         this.cliente = cliente;
         this.subtotal = subtotal;
         this.iva = iva;
         this.total = total;
+        this.empleado = empleado;
     }
 
     public int getNumero() {
@@ -71,5 +72,13 @@ public class FacturaCliente {
     public void setTotal(double total) {
         this.total = total;
     }
-    
+
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
+    }
+
 }
