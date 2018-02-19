@@ -1,0 +1,29 @@
+/*en carpeta estilos*/
+.root{
+    -fx-background-image: url('../../img/Usuario.png');
+    -fx-background-repeat: stretch;
+    -fx-background-position: 45 18;
+    -fx-background-color:rgb(78,179,211);
+    -fx-background-radius:10;
+    -fx-border-width:5;
+    -fx-border-color:rgb(8,64,129);
+    -fx-border-radius:10;
+}
+.jfx-dialog{
+    -jfx-dialog-transition:CENTER;
+    -fx-background-color:transparent;
+    -fx-text-fill:red;
+}
+.button {
+    -fx-background-color: rgb(45,115,175);
+    -fx-text-fill:#ffffff;
+    -fx-background-radius: 3px;
+    -fx-background-insets: 0px;
+}
+
+.text-field
+{
+    -fx-prompt-text-fill: White;
+    -fx-text-fill: White;
+    -fx-highlight-fill: White;
+}
