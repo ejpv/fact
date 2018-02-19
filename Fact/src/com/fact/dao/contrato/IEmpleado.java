@@ -17,6 +17,7 @@ public interface IEmpleado {
     int modificar(Empleado empleado);
     int eliminar(Empleado empleado);
     Empleado obtener(int id)throws Exception;
+    Empleado obtenerCedula(String cedula)throws Exception;
     Empleado obtener(String usuario, String contraseña)throws Exception;
     List<Empleado> obtener()throws Exception;
     
