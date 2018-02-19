@@ -17,6 +17,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -32,98 +34,155 @@ import javax.swing.plaf.synth.ColorType;
  *
  * @author acer1
  */
-public class frmPrincipal extends Application {
+public class frmPrincipal{
 
-    private BorderPane root;
+    static AnchorPane root;
+    static BorderPane contenedor;
+    private static Stage stage;
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        Scene scene = new Scene(root(), 950, 650);
-        stage.setMinWidth(950);
-        stage.setMinHeight(650);
+    public void start() throws Exception {
+        contenedor = new BorderPane();
+        contenedor.setTop(menuBar());
+        contenedor.setLeft(panelIzquierdo());
+        AnchorPane.setTopAnchor(contenedor, 0.0);
+        AnchorPane.setRightAnchor(contenedor, 0.0);
+        AnchorPane.setBottomAnchor(contenedor, 0.0);
+        AnchorPane.setLeftAnchor(contenedor, 0.0);
 
-        stage.setTitle("Fact");
+        root = new AnchorPane();
+        root.getChildren().add(contenedor);
+        Scene scene = new Scene(root, 1000, 650);
+        scene.getStylesheets().addAll(this.getClass().getResource("estilos/Principal.css").toExternalForm());
+        stage = new Stage();
         stage.setScene(scene);
+        stage.setTitle("FACT");
+        stage.getIcons().add(new Image(getClass().getResource("../img/Icono.png").toExternalForm()));
         stage.show();
     }
 
-    public BorderPane root() {
-        root = new BorderPane();
-        root.setTop(menuBar());
-        root.setCenter(componentsBar());
-//        root.setTop(componentsBar());
-//        root.setLeft(componentsBar());
-//        root.setRight(menuBar());
-//        root.setLeft(menuBar());
-        return root;
-    }
-
     public MenuBar menuBar() {
-        //MenuBar
         MenuBar MBar = new MenuBar();
-        MBar.setStyle("-fx-base:rgb(10,20,25)");
-        //Menu
-        Menu menuCompra = new Menu("Factura");
-        Menu menuVenta = new Menu("Usuarios");
-        Menu menuReportes = new Menu("");
-        //MenuItem
-        MenuItem MIAgregar = new MenuItem("Crear Factura");
-        MenuItem MIEliminar = new MenuItem("-Eliminar");
-        MenuItem MIModificar = new MenuItem(".-Modificar");
-        //Agregar Item al Menu
-//        menuCompra.getItems().add(MIAgregar);
-//        menuCompra.getItems().add(MIEliminar);
-//        menuCompra.getItems().add(MIModificar);
-//        menuVenta.getItems().add(MIAgregar);
-//        menuVenta.getItems().add(MIEliminar);
-//        menuVenta.getItems().add(MIModificar);
-//        menuReportes.getItems().add(MIAgregar);
-//        menuReportes.getItems().add(MIEliminar);
-//        menuReportes.getItems().add(MIModificar);
+        {
+//            Menu menuLogo = new Menu();
+//            {
+//                ImageView icono = new ImageView(new Image(getClass().getResourceAsStream("../imagenes/Icono.png")));
+//                icono.setFitHeight(20);
+//                icono.setFitWidth(20);
+//                menuLogo.setGraphic(icono);
+//
+//            }
 
-        //Agregar el Menu al Menu Bar
-        MBar.getMenus().add(menuCompra);
-        MBar.getMenus().add(menuVenta);
-        MBar.getMenus().add(menuReportes);
+            /*Menu menuArchivo = new Menu("Archivo");
+            {
+                MenuItem itemEmpleado = new MenuItem("Empleado\t\t");
+                itemEmpleado.setOnAction((t) -> {
+                    empleado.launchTablas();
+                });
+                MenuItem itemCliente = new MenuItem("Cliente");
+                itemCliente.setOnAction((t) -> {
+                    cliente.launchTablas();
+                });
+                MenuItem itemCategoria = new MenuItem("Categoria");
+                itemCategoria.setOnAction((t) -> {
+                    categoria.launchTablas();
+                });
+                MenuItem itemProducto = new MenuItem("Producto");
+                itemProducto.setOnAction((t) -> {
+                    producto.launchTablas();
+                });
+                MenuItem itemFactura = new MenuItem("Factúra");
+                menuArchivo.getItems().addAll(itemCategoria, itemCliente, itemEmpleado, itemFactura, itemProducto);
+            }
+            MBar.getMenus().addAll(menuArchivo);}*/
+        }
+
         return MBar;
     }
 
-    public Pane componentsBar() {
-        StackPane componentsPanel = new StackPane();
-        componentsPanel.setStyle("-fx-background-color:rgb(10,20,50)");
-        JFXButton btnEmployee = new JFXButton("Empleado"); btnEmployee.setStyle("-fx-text-fill:RGB(255,255,255)");
-        JFXButton btnFactura = new JFXButton("Factúra"); btnFactura.setStyle("-fx-text-fill:RGB(255,255,255)");
-        JFXButton btnProducto = new JFXButton("Productos");btnProducto.setStyle("-fx-text-fill:RGB(255,255,255)");
-        JFXButton btnCliente = new JFXButton("Cliente");btnCliente.setStyle("-fx-text-fill:RGB(255,255,255)");
-        GridPane panel = new GridPane();
-        panel.setMaxWidth(400);
-        panel.setMaxHeight(100);
-        panel.setStyle("-fx-background-color:Red");
-        panel.addRow(1, btnCliente);
-        panel.addRow(1, btnEmployee);
-        panel.addRow(2, btnFactura);
-        panel.addRow(2, btnProducto);
-        
-        //panel.getChildren().addAll(btnCliente,btnEmployee,btnFactura,btnProducto);
-        //panel.setAlignment(Pos.CENTER);
-        componentsPanel.getChildren().addAll(panel);
-        //StackPane.setAlignment(componentsPanel, Pos.CENTER);
+    private static VBox panelIzquierdo() {
+        VBox panel = new VBox(15);
 
-        //btnEmployee.setOnAction(RootController.showEmployee(root));
-        /*btnFactura.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent t) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Error!");
-                alert.setHeaderText(null);
-                alert.initStyle(StageStyle.UNDECORATED);
-                alert.setContentText("Algo ha salido mal con los datos de la factura!");
-
-                alert.showAndWait();
-            }
-        });*/
-//        btnCliente.setOnAction(RootController.mostrarCliente(root));
-//        btnProducto.setOnAction(RootController.mostrarProducto(root));
-        return componentsPanel;
+        {
+            JFXButton btnCliente = new JFXButton("Clientes");
+            //btnCliente.setOnAction(btnClienteActionListener());
+            JFXButton btnEmpleado = new JFXButton("Empleados");
+            //btnEmpleado.setOnAction(btnEmpleadoActionListener());
+            JFXButton btnProducto = new JFXButton("Productos");
+            //btnProducto.setOnAction(btnProductoActionListener());
+            JFXButton btnFactura = new JFXButton("Factúra");
+            //btnFactura.setOnAction(btnfacturaActionListener());
+            JFXButton btnCategoria = new JFXButton("Categoría");
+            //btnCategoria.setOnAction(btnCategoriaActionListener());
+            JFXButton btnReportes = new JFXButton("Reportes");
+            //btnReportes.setOnAction(btnReportesActionListener());
+            panel.getStyleClass().add("panel_izquierdo");
+            panel.getChildren().addAll(btnCategoria, btnCliente, btnEmpleado, btnFactura, btnProducto,btnReportes);
+        }
+        return panel;
     }
+
+    /**
+     * *************************************************************************
+     *                                                                         *
+     * IMPLEMENTACION DE LOS EVETOS * *
+     * *************************************************************************
+     */
+    /*public static EventHandler btnClienteActionListener() {
+        EventHandler handler = (t) -> {
+            cliente.formDatos(root, contenedor);
+            cliente.formTablas(contenedor);
+        };
+        return handler;
+    }
+
+    public static EventHandler btnEmpleadoActionListener() {
+        EventHandler handler = (t) -> {
+            empleado.formDatos(root, contenedor);
+            empleado.formTablas(contenedor);
+        };
+        return handler;
+    }
+
+    public static EventHandler btnfacturaActionListener() {
+        EventHandler handler = (t) -> {
+            IFactura sqlFactura = new FacturaImp();
+            factura.formFacturacion(contenedor);
+            factura.setEmpleado(cedulaEmpleado);
+            try {
+                factura.setNumeroFactura(sqlFactura.numero());
+            } catch (Exception e) {
+            }
+
+            factura.formDatos(root, contenedor);
+
+        };
+        return handler;
+    }
+
+    public static EventHandler btnCategoriaActionListener() {
+        EventHandler handler = (t) -> {
+            categoria.formDatos(root, contenedor);
+            categoria.formTablas(contenedor);
+        };
+        return handler;
+    }
+
+    public static EventHandler btnProductoActionListener() {
+        EventHandler handler = (t) -> {
+            producto.formDatos(root, contenedor);
+            producto.formTablas(contenedor);
+        };
+        return handler;
+    }
+    private static EventHandler<ActionEvent> btnReportesActionListener(){
+        EventHandler handler = (t) -> {
+            try {
+                frmReportes reportes = new frmReportes();
+                reportes.formInsertar(root);
+            } catch (Exception ex) {
+                Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        };
+        return handler;
+    }*/
 }

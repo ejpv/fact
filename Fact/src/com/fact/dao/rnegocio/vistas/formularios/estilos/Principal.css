@@ -1,0 +1,42 @@
+.panel_izquierdo .button {
+    -fx-background-color: rgb(10,20,50);
+    -fx-text-fill:#ffffff;
+    -fx-background-radius: 0px;
+    -fx-background-insets: 0px;
+    -fx-min-width:135px;
+    -fx-min-height:55px;
+}
+.panel_izquierdo .button:focused{
+    /*-fx-background-color: rgba(0,0,0,0.25);*/
+    -fx-background-color: rgb(8,64,129);
+    -fx-min-width:135px;
+}
+
+.button {
+    -fx-background-color: rgb(10,20,50);
+    -fx-text-fill:#ffffff;
+    -fx-background-radius: 4px;
+    -fx-background-insets: 0px;
+}
+.button:focused{
+    -fx-background-color: rgb(8,64,129); 
+}
+
+.panel_izquierdo{
+    -fx-background-color: rgb(10,20,50);
+    -fx-min-width:137px;
+}
+
+.menu-bar{
+    -fx-padding: 0.0em 0.666667em 0.0em 0.666667em; /* 0 8 0 8 */
+    -fx-spacing: 0.166667em; /* 2 */
+    -fx-base: derive(#d0d0d0,-70%);
+    -fx-background-color: linear-gradient(to bottom, derive(-fx-color,50%), derive(-fx-color,-30%)), -fx-body-color;
+    -fx-background-insets: 0, 1 0 1 0;
+    -fx-background-radius: 0, 0 ;
+
+}
+.text-field{
+    -fx-background-color:#ffffff;
+    -fx-background-radius:5px;
+}

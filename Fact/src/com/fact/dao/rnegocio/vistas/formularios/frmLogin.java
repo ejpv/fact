@@ -103,13 +103,13 @@ public class frmLogin extends Application{
                     Empleado user = sqleEmpleado.obtener(txUsuario.getText(),pass.getText());
                     Mensaje("Inicio de sesión","Bienvenid@ "+ user.getNombre()+ " " + user.getApellido());
                     //IFactura sqlFactura = new FacturaImp();
-                    //frmPrincipal principal = new frmPrincipal();
-                    //principal.setCedulaEmpleado(empleado.getCedula());
-                    //principal.start();
-            //        primarystage.close();
+                    frmPrincipal principal = new frmPrincipal();
+                    //principal.setCedulaEmpleado(user.getCedula());
+                    principal.start();
+                    primarystage.close();
                 } catch (Exception e) {
-                    System.err.println("Usuario o Contraseña Incorrectos");
                     dialogo.show(cnrDilogo);
+                    System.out.println(e.getCause());
                 }
             });
             btnSalir.setOnAction((t) -> {
