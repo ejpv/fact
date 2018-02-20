@@ -39,11 +39,12 @@ public class frmPrincipal{
     static AnchorPane root;
     static BorderPane contenedor;
     private static Stage stage;
+    static frmCliente cliente = new frmCliente();
+    
 
     public void start() throws Exception {
         contenedor = new BorderPane();
-        contenedor.setTop(menuBar());
-        contenedor.setLeft(panelIzquierdo());
+        contenedor.setTop(panelSuperior());
         AnchorPane.setTopAnchor(contenedor, 0.0);
         AnchorPane.setRightAnchor(contenedor, 0.0);
         AnchorPane.setBottomAnchor(contenedor, 0.0);
@@ -60,51 +61,11 @@ public class frmPrincipal{
         stage.show();
     }
 
-    public MenuBar menuBar() {
-        MenuBar MBar = new MenuBar();
-        {
-//            Menu menuLogo = new Menu();
-//            {
-//                ImageView icono = new ImageView(new Image(getClass().getResourceAsStream("../imagenes/Icono.png")));
-//                icono.setFitHeight(20);
-//                icono.setFitWidth(20);
-//                menuLogo.setGraphic(icono);
-//
-//            }
-
-            /*Menu menuArchivo = new Menu("Archivo");
-            {
-                MenuItem itemEmpleado = new MenuItem("Empleado\t\t");
-                itemEmpleado.setOnAction((t) -> {
-                    empleado.launchTablas();
-                });
-                MenuItem itemCliente = new MenuItem("Cliente");
-                itemCliente.setOnAction((t) -> {
-                    cliente.launchTablas();
-                });
-                MenuItem itemCategoria = new MenuItem("Categoria");
-                itemCategoria.setOnAction((t) -> {
-                    categoria.launchTablas();
-                });
-                MenuItem itemProducto = new MenuItem("Producto");
-                itemProducto.setOnAction((t) -> {
-                    producto.launchTablas();
-                });
-                MenuItem itemFactura = new MenuItem("Factúra");
-                menuArchivo.getItems().addAll(itemCategoria, itemCliente, itemEmpleado, itemFactura, itemProducto);
-            }
-            MBar.getMenus().addAll(menuArchivo);}*/
-        }
-
-        return MBar;
-    }
-
-    private static VBox panelIzquierdo() {
-        VBox panel = new VBox(15);
-
+    private static HBox panelSuperior() {
+        HBox panel = new HBox(15);
         {
             JFXButton btnCliente = new JFXButton("Clientes");
-            //btnCliente.setOnAction(btnClienteActionListener());
+            btnCliente.setOnAction(btnClienteActionListener());
             JFXButton btnEmpleado = new JFXButton("Empleados");
             //btnEmpleado.setOnAction(btnEmpleadoActionListener());
             JFXButton btnProducto = new JFXButton("Productos");
@@ -115,8 +76,8 @@ public class frmPrincipal{
             //btnCategoria.setOnAction(btnCategoriaActionListener());
             JFXButton btnReportes = new JFXButton("Reportes");
             //btnReportes.setOnAction(btnReportesActionListener());
-            panel.getStyleClass().add("panel_izquierdo");
-            panel.getChildren().addAll(btnCategoria, btnCliente, btnEmpleado, btnFactura, btnProducto,btnReportes);
+            panel.getStyleClass().add("panelSuperior");
+            panel.getChildren().addAll(btnFactura, btnCliente,btnProducto,btnCategoria,btnReportes,btnEmpleado);
         }
         return panel;
     }
@@ -127,15 +88,16 @@ public class frmPrincipal{
      * IMPLEMENTACION DE LOS EVETOS * *
      * *************************************************************************
      */
-    /*public static EventHandler btnClienteActionListener() {
+    public static EventHandler btnClienteActionListener() {
         EventHandler handler = (t) -> {
-            cliente.formDatos(root, contenedor);
-            cliente.formTablas(contenedor);
+            System.out.println("Cliente");
+            cliente.panelDerecho(root, contenedor);
+//            cliente.formTablas(contenedor);
         };
         return handler;
     }
 
-    public static EventHandler btnEmpleadoActionListener() {
+    /*public static EventHandler btnEmpleadoActionListener() {
         EventHandler handler = (t) -> {
             empleado.formDatos(root, contenedor);
             empleado.formTablas(contenedor);

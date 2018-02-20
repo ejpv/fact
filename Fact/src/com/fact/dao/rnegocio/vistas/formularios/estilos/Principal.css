@@ -1,4 +1,4 @@
-.panel_izquierdo .button {
+.panelSuperior .button {
     -fx-background-color: rgb(10,20,50);
     -fx-text-fill:#ffffff;
     -fx-background-radius: 0px;
@@ -6,10 +6,10 @@
     -fx-min-width:135px;
     -fx-min-height:55px;
 }
-.panel_izquierdo .button:focused{
-    /*-fx-background-color: rgba(0,0,0,0.25);*/
+.panelSuperior .button:focused{
     -fx-background-color: rgb(8,64,129);
     -fx-min-width:135px;
+    -fx-min-height:55px;
 }
 
 .button {
@@ -18,13 +18,15 @@
     -fx-background-radius: 4px;
     -fx-background-insets: 0px;
 }
+
 .button:focused{
     -fx-background-color: rgb(8,64,129); 
 }
 
-.panel_izquierdo{
+.panelSuperior{
     -fx-background-color: rgb(10,20,50);
     -fx-min-width:137px;
+    -fx-min-height:57px;
 }
 
 .menu-bar{

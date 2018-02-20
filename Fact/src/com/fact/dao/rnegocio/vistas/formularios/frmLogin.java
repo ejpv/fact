@@ -85,7 +85,7 @@ public class frmLogin extends Application{
             //Estilo del boton
             btnSalir.setTextFill(Color.WHITE);            
             btnSalir.setStyle("-fx-background-color:rgb(10,20,50)");
-            btnLogin.setTextFill(Color.WHITE);            
+            btnLogin.setTextFill(Color.WHITE);
             btnLogin.setStyle("-fx-background-color:rgb(10,20,50)");
             
             //Posicion del Boton
@@ -94,11 +94,10 @@ public class frmLogin extends Application{
             AnchorPane.setBottomAnchor(btnSalir, 25.0 );//Vertical 0.0 es abajo
             AnchorPane.setRightAnchor(btnSalir, 225.0);//Horizontal 0.0 es derecha
 
-            root.getChildren().addAll(txUsuario, ivCheck, cnrDilogo, btnLogin, btnSalir, pass);
+            root.getChildren().addAll(txUsuario, pass,btnSalir, ivCheck, cnrDilogo, btnLogin);
 
             btnLogin.setOnAction((t) -> {
                 IEmpleado sqleEmpleado = new EmpleadoImp();
-
                 try {
                     Empleado user = sqleEmpleado.obtener(txUsuario.getText(),pass.getText());
                     Mensaje("Inicio de sesión","Bienvenid@ "+ user.getNombre()+ " " + user.getApellido());
