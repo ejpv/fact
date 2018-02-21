@@ -1,0 +1,45 @@
+.aceptar {
+    -fx-background-color: rgb(140, 196, 15);
+    -fx-text-fill:#ffffff;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 5px;
+    -fx-min-width:120px;
+    -fx-min-height:30px;
+}
+.aceptar:focused{
+    -fx-background-color: rgb(110, 159, 0);
+    -fx-min-width:120px;
+    -fx-min-height:30px;
+}
+.cancelar {
+    -fx-background-color: rgb(239, 41, 35);
+    -fx-text-fill:#ffffff;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 5px;
+    -fx-min-width:120px;
+    -fx-min-height:30px;
+}
+.cancelar:focused{
+    -fx-background-color: rgb(233, 6, 0);
+    -fx-min-width:120px;
+    -fx-min-height:30px;
+}
+.limpiar {
+    -fx-background-color: rgb(3, 45, 157);
+    -fx-text-fill:#ffffff;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 5px;
+    -fx-min-width:120px;
+    -fx-min-height:30px;
+}
+.limpiar:focused{
+    -fx-background-color: rgb(8,64,129);
+    -fx-min-width:120px;
+    -fx-min-height:30px;
+}
+.text-field
+{
+    -fx-prompt-text-fill: White;
+    -fx-text-fill: White;
+    -fx-highlight-fill: White;
+}

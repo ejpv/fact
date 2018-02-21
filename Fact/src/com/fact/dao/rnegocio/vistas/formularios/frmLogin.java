@@ -15,15 +15,12 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import static javafx.scene.paint.Color.color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -37,9 +34,10 @@ public class frmLogin extends Application{
     @Override
     public void start(Stage primarystage) throws Exception {
         AnchorPane root = new AnchorPane();
+        Notificacion Mensaje =new Notificacion();
         {
             //Cuadro de texto
-            JFXTextField txUsuario = new JFXTextField("ejpv"); 
+            JFXTextField txUsuario = new JFXTextField("1"); 
             txUsuario.setPromptText("Ingrese Usuario");
             txUsuario.setLabelFloat(true);
             txUsuario.setLayoutY(175);
@@ -56,6 +54,7 @@ public class frmLogin extends Application{
             pass.setPromptText("Ingrese Contraseña");
             pass.setLabelFloat(true);
             pass.setLayoutY(175);
+            pass.setText("1");
             AnchorPane.setBottomAnchor(pass, 80.0);
             AnchorPane.setLeftAnchor(pass, 25.0);
             AnchorPane.setRightAnchor(pass, 25.0);
@@ -80,6 +79,7 @@ public class frmLogin extends Application{
 
             //Botones
             JFXButton btnLogin = new JFXButton("Ingresar");
+            btnLogin.setDefaultButton(true);
             JFXButton btnSalir = new JFXButton("Salir");
             
             //Estilo del boton
@@ -93,22 +93,20 @@ public class frmLogin extends Application{
             AnchorPane.setRightAnchor(btnLogin, 75.0);
             AnchorPane.setBottomAnchor(btnSalir, 25.0 );//Vertical 0.0 es abajo
             AnchorPane.setRightAnchor(btnSalir, 225.0);//Horizontal 0.0 es derecha
-
-            root.getChildren().addAll(txUsuario, pass,btnSalir, ivCheck, cnrDilogo, btnLogin);
+            
+            Mensaje.getStylesheets().addAll(this.getClass().getResource("estilos/Notificacion.css").toExternalForm());
+            
+            root.getChildren().addAll(txUsuario, pass,btnSalir, ivCheck, cnrDilogo, btnLogin,Mensaje);
 
             btnLogin.setOnAction((t) -> {
                 IEmpleado sqleEmpleado = new EmpleadoImp();
                 try {
                     Empleado user = sqleEmpleado.obtener(txUsuario.getText(),pass.getText());
-                    Mensaje("Inicio de sesión","Bienvenid@ "+ user.getNombre()+ " " + user.getApellido());
-                    //IFactura sqlFactura = new FacturaImp();
                     frmPrincipal principal = new frmPrincipal();
-                    //principal.setCedulaEmpleado(user.getCedula());
-                    principal.start();
+                    principal.start(user);
                     primarystage.close();
                 } catch (Exception e) {
-                    dialogo.show(cnrDilogo);
-                    System.out.println(e.getCause());
+                    Mensaje.failed("Usuario o Contraseña Incorrectos");
                 }
             });
             btnSalir.setOnAction((t) -> {
@@ -120,7 +118,7 @@ public class frmLogin extends Application{
         scene.setFill(new Color(0, 0, 0, 0));
         scene.getStylesheets().addAll(this.getClass().getResource("estilos/Login.css").toExternalForm());
         primarystage.setTitle("Fact");
-        primarystage.getIcons().add(new Image(getClass().getResource("../img/Icono.png").toExternalForm()));
+        primarystage.getIcons().add(new Image(getClass().getResource("img/Icono.png").toExternalForm()));
         primarystage.setScene(scene);
         primarystage.initStyle(StageStyle.TRANSPARENT);
         
@@ -128,16 +126,6 @@ public class frmLogin extends Application{
         
     }
 
-    private static void Mensaje(String titulo, String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.initStyle(StageStyle.UNDECORATED);
-        alert.setContentText(mensaje);
-        alert.setY(540);
-        alert.setX(460);
-        alert.showAndWait();
-    }
 
     /**
      * @param args the command line arguments

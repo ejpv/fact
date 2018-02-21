@@ -5,30 +5,16 @@
  */
 package com.fact.dao.rnegocio.vistas.formularios;
 
+import com.fact.dao.rnegocio.entidades.Empleado;
 import com.jfoenix.controls.JFXButton;
-import javafx.application.Application;
-import static javafx.application.Application.launch;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javax.swing.plaf.synth.ColorType;
 
 /**
  *
@@ -38,26 +24,31 @@ public class frmPrincipal{
 
     static AnchorPane root;
     static BorderPane contenedor;
+    static Notificacion Mensaje = new Notificacion();
     private static Stage stage;
     static frmCliente cliente = new frmCliente();
     
 
-    public void start() throws Exception {
+    public void start(Empleado emp) throws Exception {
         contenedor = new BorderPane();
         contenedor.setTop(panelSuperior());
         AnchorPane.setTopAnchor(contenedor, 0.0);
         AnchorPane.setRightAnchor(contenedor, 0.0);
         AnchorPane.setBottomAnchor(contenedor, 0.0);
         AnchorPane.setLeftAnchor(contenedor, 0.0);
-
+        
         root = new AnchorPane();
-        root.getChildren().add(contenedor);
-        Scene scene = new Scene(root, 1000, 650);
+        Mensaje.successful("Bienvenido "+emp.getNombre());
+        Mensaje.getStylesheets().addAll(this.getClass().getResource("estilos/Notificacion.css").toExternalForm());
+        Mensaje.toFront();
+        root.getChildren().addAll(contenedor,Mensaje);
+        Scene scene = new Scene(root, 1200, 650);
         scene.getStylesheets().addAll(this.getClass().getResource("estilos/Principal.css").toExternalForm());
         stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("FACT");
-        stage.getIcons().add(new Image(getClass().getResource("../img/Icono.png").toExternalForm()));
+        stage.setResizable(false);
+        stage.getIcons().add(new Image(getClass().getResource("img/Icono.png").toExternalForm()));
         stage.show();
     }
 
@@ -76,8 +67,12 @@ public class frmPrincipal{
             //btnCategoria.setOnAction(btnCategoriaActionListener());
             JFXButton btnReportes = new JFXButton("Reportes");
             //btnReportes.setOnAction(btnReportesActionListener());
+            JFXButton btnIva = new JFXButton("Iva");
+            JFXButton btnProveedor = new JFXButton("Proveedor");
+            Button btnPerfil = new Button();
+            btnPerfil.getStyleClass().add("boton");
             panel.getStyleClass().add("panelSuperior");
-            panel.getChildren().addAll(btnFactura, btnCliente,btnProducto,btnCategoria,btnReportes,btnEmpleado);
+            panel.getChildren().addAll(btnFactura, btnCliente,btnProducto,btnCategoria,btnIva,btnProveedor,btnReportes,btnEmpleado,btnPerfil);
         }
         return panel;
     }
@@ -90,9 +85,8 @@ public class frmPrincipal{
      */
     public static EventHandler btnClienteActionListener() {
         EventHandler handler = (t) -> {
-            System.out.println("Cliente");
             cliente.panelDerecho(root, contenedor);
-//            cliente.formTablas(contenedor);
+            cliente.crearTabla(contenedor);
         };
         return handler;
     }

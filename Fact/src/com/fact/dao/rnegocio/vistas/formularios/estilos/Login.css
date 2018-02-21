@@ -1,6 +1,6 @@
 /*en carpeta estilos*/
 .root{
-    -fx-background-image: url('../../img/Usuario.png');
+    -fx-background-image: url('../img/Usuario.png');
     -fx-background-repeat: stretch;
     -fx-background-position: 45 18;
     -fx-background-color:rgb(78,179,211);
