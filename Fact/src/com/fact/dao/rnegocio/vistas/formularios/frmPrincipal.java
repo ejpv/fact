@@ -39,11 +39,11 @@ public class frmPrincipal{
         
         root = new AnchorPane();
         Mensaje.successful("Bienvenido "+emp.getNombre());
-        Mensaje.getStylesheets().addAll(this.getClass().getResource("estilos/Notificacion.css").toExternalForm());
         Mensaje.toFront();
         root.getChildren().addAll(contenedor,Mensaje);
         Scene scene = new Scene(root, 1200, 650);
         scene.getStylesheets().addAll(this.getClass().getResource("estilos/Principal.css").toExternalForm());
+        scene.getStylesheets().addAll(this.getClass().getResource("estilos/Notificacion.css").toExternalForm());
         stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("FACT");

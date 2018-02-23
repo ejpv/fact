@@ -13,7 +13,8 @@
 }
 
 .panelSuperior .boton{
-    -fx-background-image: url('../img/ajustes64.png');
+    -fx-background-image: url('../img/Ajuste.png');
+    -fx-background-repeat: no-repeat;
     -fx-min-width:55px;
     -fx-min-height:55px;
     -fx-background-color: rgb(10,20,50);

@@ -7,6 +7,7 @@ import com.fact.dao.contrato.ICliente;
 import com.fact.dao.rnegocio.entidades.Cliente;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ClienteImp implements ICliente{
@@ -164,6 +165,12 @@ public class ClienteImp implements ICliente{
         } finally {
             con.desconectar();
         }
+        lista.sort(new Comparator<Cliente>() {
+            @Override
+            public int compare(Cliente cliente1, Cliente cliente2) {
+                return new Integer(cliente1.getCodigo()).compareTo(cliente2.getCodigo());
+            }
+        });
         return lista;
     }
     

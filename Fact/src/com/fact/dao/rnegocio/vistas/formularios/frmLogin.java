@@ -115,6 +115,7 @@ public class frmLogin extends Application{
             root.getStyleClass().add("root");
         }
         Scene scene = new Scene(root, 350, 450);
+        
         scene.setFill(new Color(0, 0, 0, 0));
         scene.getStylesheets().addAll(this.getClass().getResource("estilos/Login.css").toExternalForm());
         primarystage.setTitle("Fact");

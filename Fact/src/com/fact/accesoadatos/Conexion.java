@@ -1,16 +1,24 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.fact.accesoadatos;
 
 import java.sql.*;
 import java.util.*;
 
+/**
+ *
+ * @author usuario
+ */
 public class Conexion {
     private Connection con;
     final String DRIVER = "org.postgresql.Driver";
     final String URL = "jdbc:postgresql://localhost:5433/fact";
     final String USUARIO = "postgres";
     final String CLAVE = "1";
-    
+
     public void conectar() {
         try {
             Class.forName(DRIVER);
@@ -85,7 +93,7 @@ public class Conexion {
 //                    java.util.Date fechaOriginal = (java.util.Date) prm.getValor();
 //                    fechaBD = new java.sql.Date(fechaOriginal.getTime());
 //                    pstm.setObject(prm.getPosicion(), fechaBD);
-                    pstm.setObject(prm.getPosicion(), 
+                    pstm.setObject(prm.getPosicion(),
                     new java.sql.Date(((java.util.Date)prm.getValor()).getTime()));
                 } else {
                     pstm.setObject(prm.getPosicion(), prm.getValor());
@@ -109,5 +117,4 @@ public class Conexion {
             }
         }
     }
-    
 }
