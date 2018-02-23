@@ -49,7 +49,7 @@ public class frmCliente {
     private static TableView<Cliente> tabla;
     private static JFXButton btnModificar = new JFXButton("Modificar");
     private static JFXButton btnEliminar = new JFXButton("Eliminar");
-    static Notificacion Mensaje = new Notificacion();
+    static frmPrincipal principal = new frmPrincipal();
     private static Label lblITitulo;
 
     private void formInsertar(AnchorPane root,BorderPane panel) {
@@ -111,8 +111,7 @@ public class frmCliente {
                     });
                     ctnBotones.getChildren().addAll(btnAceptar, btnLimpiar, btnCancelar);
                 }
-                Contenedor.getChildren().addAll(lblITitulo, tfCedula, tfNombre, tfApellido, tfDireccion,tfTelefono,tfEmail,tfRuc, ctnBotones,Mensaje);
-                Mensaje.toFront();
+                Contenedor.getChildren().addAll(lblITitulo, tfCedula, tfNombre, tfApellido, tfDireccion,tfTelefono,tfEmail,tfRuc, ctnBotones);
                 Contenedor.getStyleClass().add("panel");
                 Contenedor.getStylesheets().addAll(this.getClass().getResource("estilos/Botones.css").toExternalForm());
                 Contenedor.setPadding(new Insets(15));
@@ -265,7 +264,7 @@ public class frmCliente {
                 });
             }
         } catch (Exception e) {
-            Mensaje.failed("No se pudo Obtener Clientes");
+            principal.Mensaje.failed("No se pudo Obtener Clientes");
             
         }
         return lst;
@@ -321,8 +320,7 @@ public class frmCliente {
                     });
                     ctnBotones.getChildren().addAll(btnAceptar, btnCancelar);
                 }
-                Contenedor.getChildren().addAll(titulo, tfCedula, tfNombre, tfApellido, tfDireccion,tfTelefono,tfEmail,tfRuc, ctnBotones,Mensaje);
-                Mensaje.toFront();
+                Contenedor.getChildren().addAll(titulo, tfCedula, tfNombre, tfApellido, tfDireccion,tfTelefono,tfEmail,tfRuc, ctnBotones);
                 Contenedor.getStyleClass().add("panel");
                 Contenedor.getStylesheets().addAll(this.getClass().getResource("estilos/Botones.css").toExternalForm());
                 Contenedor.setPadding(new Insets(15));
@@ -399,8 +397,7 @@ public class frmCliente {
                     });
                     ctnBotones.getChildren().addAll(btnAceptar, btnCancelar);
                 }
-                Contenedor.getChildren().addAll(titulo,lblPregunta, tfCedula, tfNombre, tfApellido, tfDireccion,tfTelefono,tfEmail,tfRuc, ctnBotones,Mensaje);
-                Mensaje.toFront();
+                Contenedor.getChildren().addAll(titulo,lblPregunta, tfCedula, tfNombre, tfApellido, tfDireccion,tfTelefono,tfEmail,tfRuc, ctnBotones);
                 Contenedor.getStyleClass().add("panel");
                 Contenedor.getStylesheets().addAll(this.getClass().getResource("estilos/Botones.css").toExternalForm());
                 Contenedor.setPadding(new Insets(15));
@@ -439,25 +436,13 @@ public class frmCliente {
                 cliente.setEmail(tfEmail.getText());
                 cliente.setRuc(tfRuc.getText());
                 
-                System.out.println("id: " + cliente.getCodigo());
                 if (sqlCliente.insertar(cliente)>0) {
                     root.getChildren().remove(fondo);
-                    Mensaje.successful("Nuevo cliente Ingresado");
-                    root.getChildren().add(Mensaje);
+                    principal.Mensaje.successful("Nuevo cliente Ingresado");
                     crearTabla(panel);
                 }
             } catch (Exception e) {
-                System.out.println("llega aqui");
-//                Mensaje.failed("Error al Ingresar Usuario!");
-//                
-//                
-//                String error = "ERROR: llave duplicada viola restricción de unicidad «cliente_cedula_key»/n  "
-//                        + "Detail: Ya existe la llave (cedula)=("+cliente.getCedula()+").";
-//                
-//                if(error.equals(e.getMessage())){
-//                    System.out.println("cedula ya registrada.");
-//                }
-//                root.getChildren().add(Mensaje);
+                principal.Mensaje.failed("Error al Ingresar Usuario!");
             }
         };
         return handler;
@@ -469,13 +454,11 @@ public class frmCliente {
             try {
                 if (sqlCliente.eliminar(cliente) > 0) {
                     root.getChildren().remove(fondo);
-                    Mensaje.successful("Cliente "+cliente.getNombre()+" eliminado");
-                    root.getChildren().add(Mensaje);
+                    principal.Mensaje.successful("Cliente "+cliente.getNombre()+" eliminado");
                     crearTabla(panel);
                 }
             } catch (Exception e) {
-                Mensaje.failed("No se Pudo Eliminar Cliente");
-                root.getChildren().add(Mensaje);
+               principal.Mensaje.failed("No se Pudo Eliminar Cliente");
             }
         };
         return handler;
@@ -494,22 +477,19 @@ public class frmCliente {
                 cliente.setRuc(tfRuc.getText());
                 if (sqlCliente.modificar(cliente) > 0) {
                     root.getChildren().remove(fondo);
-                    Mensaje.successful("Cliente Modificado");
-                    root.getChildren().add(Mensaje);
+                    principal.Mensaje.successful("Cliente Modificado");
                     crearTabla(panel);
                 }
             } catch (Exception e) {
-                Mensaje.failed("No se Pudo Modificar Cliente");
-                root.getChildren().add(Mensaje);
+                principal.Mensaje.failed("No se Pudo Modificar Cliente");
             }
         };
         return handler;
     }
-}
-/*   private EventHandler buscarActionListener() {
+    
+    /*private EventHandler BuscarActionListener() {
         EventHandler handler = (t) -> {
             try {
-                ICliente sqlCliente = new ClienteImp();
                 Cliente cliente = sqlCliente.obtener(tfCedula.getText());
                 tfApellido.setText(cliente.getApellidos());
                 tfNombre.setText(cliente.getNombres());
@@ -519,5 +499,5 @@ public class frmCliente {
             }
         };
         return handler;
-    }
- */
+    }*/
+}
