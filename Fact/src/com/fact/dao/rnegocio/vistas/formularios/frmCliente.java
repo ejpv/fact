@@ -12,6 +12,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -19,7 +21,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -52,16 +54,17 @@ public class frmCliente {
     static frmPrincipal principal = new frmPrincipal();
     private static Label lblITitulo;
 
-    private void formInsertar(AnchorPane root,BorderPane panel) {
+    private void formInsertar(AnchorPane root, BorderPane panel) {
         StackPane fondo = new StackPane();
         {
             VBox Contenedor = new VBox(25);
             {
-                lblITitulo = new Label("Insertar Cliente");
+                lblITitulo = new Label("INGRESAR CLIENTE");
                 lblITitulo.setStyle("-fx-text-fill:white;-fx-padding:5"); //Color del Texto
-                lblITitulo.getStyleClass().add("label");
-                lblITitulo.setAlignment(Pos.TOP_CENTER);
-                lblITitulo.setMinHeight(50);
+                HBox titulo = new HBox();
+                titulo.getChildren().add(lblITitulo);
+                HBox.setHgrow(titulo, Priority.ALWAYS);
+                titulo.setAlignment(Pos.CENTER);
 
                 tfCedula = new JFXTextField("000000000-0");
                 tfCedula.setPromptText("Cédula");
@@ -94,6 +97,7 @@ public class frmCliente {
                 HBox ctnBotones = new HBox(15);
                 {
                     JFXButton btnAceptar = new JFXButton("Aceptar");
+                    btnAceptar.setDefaultButton(true);
                     btnAceptar.setOnAction(InsertarActionListener(root, fondo, panel));
                     JFXButton btnCancelar = new JFXButton("Cancelar");
                     btnCancelar.setOnAction((t) -> {
@@ -111,7 +115,7 @@ public class frmCliente {
                     });
                     ctnBotones.getChildren().addAll(btnAceptar, btnLimpiar, btnCancelar);
                 }
-                Contenedor.getChildren().addAll(lblITitulo, tfCedula, tfNombre, tfApellido, tfDireccion,tfTelefono,tfEmail,tfRuc, ctnBotones);
+                Contenedor.getChildren().addAll(titulo, tfCedula, tfNombre, tfApellido, tfDireccion, tfTelefono, tfEmail, tfRuc, ctnBotones);
                 Contenedor.getStyleClass().add("panel");
                 Contenedor.getStylesheets().addAll(this.getClass().getResource("estilos/Botones.css").toExternalForm());
                 Contenedor.setPadding(new Insets(15));
@@ -145,18 +149,20 @@ public class frmCliente {
         VBox boxButtons = new VBox(10);
         JFXButton btnNuevo = new JFXButton("Nuevo");
         btnNuevo.setOnAction((t) -> {
-            formInsertar(root,layout);
+            formInsertar(root, layout);
         });
-        btnModificar.setOnAction((t)->{
-            formModificar(root,layout);
+        btnModificar.setOnAction((t) -> {
+            formModificar(root, layout);
         });
         btnModificar.setDisable(true);
-        btnEliminar.setOnAction((t)->{
-            formEliminar(root,layout);
+        btnEliminar.setOnAction((t) -> {
+            formEliminar(root, layout);
         });
         btnEliminar.setDisable(true);
         JFXButton btnBuscar = new JFXButton("Buscar");
-        //btnBuscar.setOnAction(buscarActionListener());
+        btnBuscar.setOnAction((t) -> {
+            formBuscar(root, layout);
+        });
 
         //Contenedor de Botones
         boxButtons.getChildren().addAll(btnBuscar, btnNuevo, btnModificar, btnEliminar);
@@ -265,12 +271,12 @@ public class frmCliente {
             }
         } catch (Exception e) {
             principal.Mensaje.failed("No se pudo Obtener Clientes");
-            
+
         }
         return lst;
     }
 
-    public void formModificar(AnchorPane root,BorderPane panel) {
+    public void formModificar(AnchorPane root, BorderPane panel) {
         StackPane fondo = new StackPane();
         {
             VBox Contenedor = new VBox(25);
@@ -313,14 +319,16 @@ public class frmCliente {
                 HBox ctnBotones = new HBox(15);
                 {
                     JFXButton btnAceptar = new JFXButton("Aceptar");
+                    btnAceptar.setDefaultButton(true);
                     btnAceptar.setOnAction(ModificarActionListener(root, fondo, panel));
                     JFXButton btnCancelar = new JFXButton("Cancelar");
                     btnCancelar.setOnAction((t) -> {
                         root.getChildren().remove(fondo);
                     });
                     ctnBotones.getChildren().addAll(btnAceptar, btnCancelar);
+                    ctnBotones.setAlignment(Pos.CENTER);
                 }
-                Contenedor.getChildren().addAll(titulo, tfCedula, tfNombre, tfApellido, tfDireccion,tfTelefono,tfEmail,tfRuc, ctnBotones);
+                Contenedor.getChildren().addAll(titulo, tfCedula, tfNombre, tfApellido, tfDireccion, tfTelefono, tfEmail, tfRuc, ctnBotones);
                 Contenedor.getStyleClass().add("panel");
                 Contenedor.getStylesheets().addAll(this.getClass().getResource("estilos/Botones.css").toExternalForm());
                 Contenedor.setPadding(new Insets(15));
@@ -336,53 +344,50 @@ public class frmCliente {
         }
         root.getChildren().add(fondo);
     }
-    
-    private void formEliminar(AnchorPane root,BorderPane panel) {
+
+    private void formEliminar(AnchorPane root, BorderPane panel) {
         StackPane fondo = new StackPane();
         {
             VBox Contenedor = new VBox(25);
             {
-                lblITitulo = new Label("Eliminar Cliente");
+                lblITitulo = new Label("ELIMINAR CLIENTE");
                 lblITitulo.setStyle("-fx-text-fill:white;-fx-padding:5"); //Color del Texto
                 HBox titulo = new HBox();
                 titulo.getChildren().add(lblITitulo);
                 HBox.setHgrow(titulo, Priority.ALWAYS);
                 titulo.setAlignment(Pos.CENTER);
-                
-                Label lblPregunta = new Label("¿Está Seguro de querer eliminar este Cliente?");
-                lblPregunta.setStyle("-fx-text-fill:white;-fx-padding:5"); //Color del Texto
 
-                tfCedula = new JFXTextField(cliente.getCedula());
+                tfCedula = new JFXTextField();
                 tfCedula.setPromptText("Cédula");
                 tfCedula.setLabelFloat(true);
                 tfCedula.setDisable(true);
 
-                tfNombre = new JFXTextField(cliente.getNombre());
+                tfNombre = new JFXTextField();
                 tfNombre.setPromptText("Nombres");
                 tfNombre.setLabelFloat(true);
                 tfNombre.setDisable(true);
 
-                tfApellido = new JFXTextField(cliente.getApellido());
+                tfApellido = new JFXTextField();
                 tfApellido.setPromptText("Apellidos");
                 tfApellido.setLabelFloat(true);
                 tfApellido.setDisable(true);
 
-                tfDireccion = new JFXTextField(cliente.getDireccion());
+                tfDireccion = new JFXTextField();
                 tfDireccion.setPromptText("Direccion");
                 tfDireccion.setLabelFloat(true);
                 tfDireccion.setDisable(true);
 
-                tfTelefono = new JFXTextField(cliente.getTelefono());
+                tfTelefono = new JFXTextField();
                 tfTelefono.setPromptText("Teléfono");
                 tfTelefono.setLabelFloat(true);
                 tfTelefono.setDisable(true);
 
-                tfEmail = new JFXTextField(cliente.getEmail());
+                tfEmail = new JFXTextField();
                 tfEmail.setPromptText("Email");
                 tfEmail.setLabelFloat(true);
                 tfEmail.setDisable(true);
 
-                tfRuc = new JFXTextField(cliente.getRuc());
+                tfRuc = new JFXTextField();
                 tfRuc.setPromptText("Ruc");
                 tfRuc.setLabelFloat(true);
                 tfRuc.setDisable(true);
@@ -390,14 +395,16 @@ public class frmCliente {
                 HBox ctnBotones = new HBox(15);
                 {
                     JFXButton btnAceptar = new JFXButton("Aceptar");
+                    btnAceptar.setDefaultButton(true);
                     btnAceptar.setOnAction(EliminarActionListener(root, fondo, panel));
                     JFXButton btnCancelar = new JFXButton("Cancelar");
                     btnCancelar.setOnAction((t) -> {
                         root.getChildren().remove(fondo);
                     });
                     ctnBotones.getChildren().addAll(btnAceptar, btnCancelar);
+                    ctnBotones.setAlignment(Pos.CENTER);
                 }
-                Contenedor.getChildren().addAll(titulo,lblPregunta, tfCedula, tfNombre, tfApellido, tfDireccion,tfTelefono,tfEmail,tfRuc, ctnBotones);
+                Contenedor.getChildren().addAll(titulo, tfCedula, tfNombre, tfApellido, tfDireccion, tfTelefono, tfEmail, tfRuc, ctnBotones);
                 Contenedor.getStyleClass().add("panel");
                 Contenedor.getStylesheets().addAll(this.getClass().getResource("estilos/Botones.css").toExternalForm());
                 Contenedor.setPadding(new Insets(15));
@@ -414,20 +421,173 @@ public class frmCliente {
         root.getChildren().add(fondo);
     }
 
-/**
- * *************************************************************************
- *                                                                         *
- * IMPLEMENTACION DE LOS EVETOS * *
- * *************************************************************************
- */
-    private EventHandler InsertarActionListener(AnchorPane root, StackPane fondo,BorderPane panel) {
+    private void formBuscar(AnchorPane root, BorderPane panel) {
+        StackPane fondo = new StackPane();
+        {
+            VBox Contenedor = new VBox(25);
+            {
+                lblITitulo = new Label("BUSCAR CLIENTE");
+                lblITitulo.setStyle("-fx-text-fill:white;-fx-padding:5"); //Color del Texto
+                HBox titulo = new HBox();
+                HBox.setHgrow(titulo, Priority.ALWAYS);
+                titulo.getChildren().add(lblITitulo);
+                titulo.setAlignment(Pos.CENTER);
+
+                HBox Pbuscador = new HBox();
+                TextField buscador = new TextField("080323656-2");
+                buscador.setPromptText("Escribe una Cédula...");
+                buscador.getStyleClass().add("buscador");
+                buscador.setMinWidth(260);
+                buscador.setMinHeight(30);
+
+                JFXButton btn = new JFXButton("Buscar");
+                btn.setDefaultButton(true);
+                Pbuscador.getChildren().addAll(buscador, btn);
+                Pbuscador.setSpacing(10);
+
+                tfCedula = new JFXTextField("");
+                tfCedula.setPromptText("Cédula");
+                tfCedula.setLabelFloat(true);
+                tfCedula.setDisable(true);
+
+                tfNombre = new JFXTextField();
+                tfNombre.setPromptText("Nombres");
+                tfNombre.setLabelFloat(true);
+                tfNombre.setDisable(true);
+
+                tfApellido = new JFXTextField();
+                tfApellido.setPromptText("Apellidos");
+                tfApellido.setLabelFloat(true);
+                tfApellido.setDisable(true);
+
+                tfDireccion = new JFXTextField();
+                tfDireccion.setPromptText("Direccion");
+                tfDireccion.setLabelFloat(true);
+                tfDireccion.setDisable(true);
+
+                tfTelefono = new JFXTextField();
+                tfTelefono.setPromptText("Teléfono");
+                tfTelefono.setLabelFloat(true);
+                tfTelefono.setDisable(true);
+
+                tfEmail = new JFXTextField();
+                tfEmail.setPromptText("Email");
+                tfEmail.setLabelFloat(true);
+                tfEmail.setDisable(true);
+
+                tfRuc = new JFXTextField();
+                tfRuc.setPromptText("Ruc");
+                tfRuc.setLabelFloat(true);
+                tfRuc.setDisable(true);
+
+                HBox ctnBotones = new HBox(15);
+                {
+                    JFXButton btnModificar = new JFXButton("Modificar");
+                    btnModificar.setDisable(true);
+                    btnModificar.setOnAction((t) -> {
+                        root.getChildren().remove(fondo);
+                        formModificar(root, panel);
+                    });
+                    JFXButton btnEliminar = new JFXButton("Eliminar");
+                    btnEliminar.setDisable(true);
+                    btnEliminar.setOnAction((t) -> {
+                        root.getChildren().remove(fondo);
+                        eliminarBuscado(root, panel);
+                    });
+                    JFXButton btnCancelar = new JFXButton("Cancelar");
+                    btnCancelar.setOnAction((t) -> {
+                        root.getChildren().remove(fondo);
+                    });
+                    btn.setOnAction((t) -> {
+                        ICliente sqlcliente = new ClienteImp();
+                        try {
+                            cliente = sqlcliente.obtenerCedula(buscador.getText());
+                            tfCedula.setText(cliente.getCedula());
+                            tfNombre.setText(cliente.getNombre());
+                            tfApellido.setText(cliente.getApellido());
+                            tfDireccion.setText(cliente.getDireccion());
+                            tfTelefono.setText(cliente.getTelefono());
+                            tfEmail.setText(cliente.getEmail());
+                            tfRuc.setText(cliente.getRuc());
+                            btnEliminar.setDisable(false);
+                            btnModificar.setDisable(false);
+                        } catch (Exception ex) {
+                        }
+                    });
+                    ctnBotones.getChildren().addAll(btnModificar, btnEliminar, btnCancelar);
+                }
+                Contenedor.getChildren().addAll(titulo, Pbuscador, tfCedula, tfNombre, tfApellido, tfDireccion, tfTelefono, tfEmail, tfRuc, ctnBotones);
+                Contenedor.getStyleClass().add("panel");
+                Contenedor.getStylesheets().addAll(this.getClass().getResource("estilos/Botones.css").toExternalForm());
+                Contenedor.setPadding(new Insets(15));
+                Contenedor.setStyle("-fx-background-color: rgb(10,20,50)");
+                Contenedor.setMaxSize(400, 270);
+            }
+            fondo.setStyle("-fx-background-color:rgba(25,25,25,0.6)");
+            AnchorPane.setBottomAnchor(fondo, 0.0);
+            AnchorPane.setLeftAnchor(fondo, 0.0);
+            AnchorPane.setTopAnchor(fondo, 0.0);
+            AnchorPane.setRightAnchor(fondo, 0.0);
+            fondo.getChildren().add(Contenedor);
+        }
+        root.getChildren().add(fondo);
+    }
+
+    private void eliminarBuscado(AnchorPane root, BorderPane panel) {
+        StackPane fondo = new StackPane();
+        {
+            lblITitulo = new Label("¿Está seguro de querer eliminar este Cliente?");
+            lblITitulo.setStyle("-fx-text-fill:white;-fx-padding:5"); //Color del Texto
+            fondo.setStyle("-fx-background-color:rgba(25,25,25,0.6)");
+            VBox Contenedor = new VBox(25);
+            HBox Imagen = new HBox(15);
+            {
+                ImageView advertencia = new ImageView();
+                Imagen.getChildren().add(advertencia);
+                Imagen.setAlignment(Pos.CENTER);
+            }
+            HBox ctnBotones = new HBox(15);
+            {
+                JFXButton btnAceptar = new JFXButton("Aceptar");
+                btnAceptar.setDefaultButton(true);
+                btnAceptar.setOnAction(EliminarActionListener(root, fondo, panel));
+                JFXButton btnCancelar = new JFXButton("Cancelar");
+                btnCancelar.setOnAction((t) -> {
+                    root.getChildren().remove(fondo);
+                });
+                ctnBotones.getChildren().addAll(btnAceptar, btnCancelar);
+                ctnBotones.setAlignment(Pos.CENTER);
+            }
+            Contenedor.getChildren().addAll(Imagen, lblITitulo, ctnBotones);
+            VBox.setVgrow(Imagen, Priority.ALWAYS);
+            Contenedor.getStyleClass().add("panelEliminarBuscado");
+            Contenedor.getStylesheets().addAll(this.getClass().getResource("estilos/Botones.css").toExternalForm());
+            Contenedor.setPadding(new Insets(15));
+            Contenedor.setStyle("-fx-background-color: rgb(10,20,50)");
+            Contenedor.setMaxSize(240, 240);
+            AnchorPane.setBottomAnchor(fondo, 0.0);
+            AnchorPane.setLeftAnchor(fondo, 0.0);
+            AnchorPane.setTopAnchor(fondo, 0.0);
+            AnchorPane.setRightAnchor(fondo, 0.0);
+            fondo.getChildren().add(Contenedor);
+        }
+        root.getChildren().add(fondo);
+    }
+
+    /**
+     * *************************************************************************
+     *                                                                         *
+     * IMPLEMENTACION DE LOS EVETOS * *
+     * *************************************************************************
+     */
+    private EventHandler InsertarActionListener(AnchorPane root, StackPane fondo, BorderPane panel) {
         EventHandler handler = (t) -> {
             ICliente sqlCliente = new ClienteImp();
-            
+
             try {
                 List<Cliente> lst = new ArrayList<>();
-                lst=sqlCliente.obtener();
-                cliente.setCodigo(lst.get(lst.size()-1).getCodigo()+1);
+                lst = sqlCliente.obtener();
+                cliente.setCodigo(lst.get(lst.size() - 1).getCodigo() + 1);
                 cliente.setCedula(tfCedula.getText());
                 cliente.setNombre(tfNombre.getText());
                 cliente.setApellido(tfApellido.getText());
@@ -435,8 +595,7 @@ public class frmCliente {
                 cliente.setTelefono(tfTelefono.getText());
                 cliente.setEmail(tfEmail.getText());
                 cliente.setRuc(tfRuc.getText());
-                
-                if (sqlCliente.insertar(cliente)>0) {
+                if (sqlCliente.insertar(cliente) > 0) {
                     root.getChildren().remove(fondo);
                     principal.Mensaje.successful("Nuevo cliente Ingresado");
                     crearTabla(panel);
@@ -448,23 +607,23 @@ public class frmCliente {
         return handler;
     }
 
-    private EventHandler EliminarActionListener(AnchorPane root, StackPane fondo,BorderPane panel) {
+    private EventHandler EliminarActionListener(AnchorPane root, StackPane fondo, BorderPane panel) {
         ICliente sqlCliente = new ClienteImp();
-        EventHandler handler = (t) -> {
+        EventHandler h = (t) -> {
             try {
                 if (sqlCliente.eliminar(cliente) > 0) {
                     root.getChildren().remove(fondo);
-                    principal.Mensaje.successful("Cliente "+cliente.getNombre()+" eliminado");
+                    principal.Mensaje.successful("Cliente " + cliente.getNombre() + " eliminado");
                     crearTabla(panel);
                 }
             } catch (Exception e) {
-               principal.Mensaje.failed("No se Pudo Eliminar Cliente");
+                principal.Mensaje.failed("No se Pudo Eliminar Cliente");
             }
         };
-        return handler;
+        return h;
     }
-    
-    private EventHandler ModificarActionListener(AnchorPane root, StackPane fondo,BorderPane panel) {
+
+    private EventHandler ModificarActionListener(AnchorPane root, StackPane fondo, BorderPane panel) {
         EventHandler handler = (t) -> {
             try {
                 ICliente sqlCliente = new ClienteImp();
@@ -486,18 +645,4 @@ public class frmCliente {
         };
         return handler;
     }
-    
-    /*private EventHandler BuscarActionListener() {
-        EventHandler handler = (t) -> {
-            try {
-                Cliente cliente = sqlCliente.obtener(tfCedula.getText());
-                tfApellido.setText(cliente.getApellidos());
-                tfNombre.setText(cliente.getNombres());
-                tfTelefono.setText(cliente.getTelefono());
-            } catch (Exception e) {
-                Mensaje("ERROR!", e.getMessage());
-            }
-        };
-        return handler;
-    }*/
 }

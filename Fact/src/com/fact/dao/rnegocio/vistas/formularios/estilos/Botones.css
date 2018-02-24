@@ -24,3 +24,19 @@
     -fx-text-fill: White;
     -fx-highlight-fill: White;
 }
+.buscador
+{
+    -fx-prompt-text-fill: Black;
+    -fx-text-fill: Black;
+    -fx-highlight-fill: Black;
+}
+.panelEliminarBuscado {
+    -fx-background-radius:10;
+    -fx-border-width:5;
+    -fx-border-color:rgb(8,64,129);
+    -fx-border-radius:10;
+    -fx-background-image: url('../img/Advertencia.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 97 30;
+    -fx-background-width: 5;
+}
