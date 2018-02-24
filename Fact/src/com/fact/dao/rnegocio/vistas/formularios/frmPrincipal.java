@@ -27,8 +27,8 @@ public class frmPrincipal{
     static Notificacion Mensaje = new Notificacion();
     private static Stage stage;
     static frmCliente cliente = new frmCliente();
+    static frmCategoria categoria=new frmCategoria();
     
-
     public void start(Empleado emp) throws Exception {
         contenedor = new BorderPane();
         contenedor.setTop(panelSuperior());
@@ -64,7 +64,7 @@ public class frmPrincipal{
             JFXButton btnFactura = new JFXButton("Factúra");
             //btnFactura.setOnAction(btnfacturaActionListener());
             JFXButton btnCategoria = new JFXButton("Categoría");
-            //btnCategoria.setOnAction(btnCategoriaActionListener());
+            btnCategoria.setOnAction(btnCategoriaActionListener());
             JFXButton btnReportes = new JFXButton("Reportes");
             //btnReportes.setOnAction(btnReportesActionListener());
             JFXButton btnIva = new JFXButton("Iva");
@@ -87,6 +87,13 @@ public class frmPrincipal{
         EventHandler handler = (t) -> {
             cliente.panelDerecho(root, contenedor);
             cliente.crearTabla(contenedor);
+        };
+        return handler;
+    }
+    public static EventHandler btnCategoriaActionListener() {
+        EventHandler handler = (t) -> {
+            categoria.panelDerecho(root, contenedor);
+            categoria.crearTabla(contenedor);
         };
         return handler;
     }
