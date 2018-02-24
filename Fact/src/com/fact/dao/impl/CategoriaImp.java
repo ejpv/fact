@@ -11,19 +11,20 @@ import com.fact.dao.contrato.ICategoria;
 import com.fact.dao.rnegocio.entidades.Categoria;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
  *
  * @author Angel-Pc
  */
-public class CategoriaImp implements ICategoria{
+public class CategoriaImp implements ICategoria {
 
     @Override
     public int insertar(Categoria categoria) {
         int numFilasAfectadas = 0;
-         String sql = "INSERT INTO categoria(codigo_categoria, nombre, detalle)\n" +
-                "    VALUES (?, ?, ?)";
+        String sql = "INSERT INTO categoria(codigo_categoria, nombre, detalle)\n"
+                + "    VALUES (?, ?, ?)";
         List<Parametro> lstPar = new ArrayList<>();
         lstPar.add(new Parametro(1, categoria.getCodigo()));
         lstPar.add(new Parametro(2, categoria.getNombre()));
@@ -123,12 +124,19 @@ public class CategoriaImp implements ICategoria{
         } finally {
             con.desconectar();
         }
+        lista.sort(new Comparator<Categoria>() {
+            @Override
+            public int compare(Categoria categoria1, Categoria categoria2) {
+                return new Integer(categoria1.getCodigo()).compareTo(categoria2.getCodigo());
+            }
+        });
         return lista;
+
     }
 
     @Override
     public int eliminar(int codigo) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
