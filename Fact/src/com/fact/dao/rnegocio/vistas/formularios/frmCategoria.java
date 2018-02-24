@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -43,11 +44,12 @@ public class frmCategoria {
         {
             VBox Contenedor = new VBox(25);
             {
-                lblITitulo = new Label("Insertar Categoria");
+                lblITitulo = new Label("INSERTAR CATEGORIA");
                 lblITitulo.setStyle("-fx-text-fill:white;-fx-padding:5"); //Color del Texto
-                lblITitulo.getStyleClass().add("label");
-                lblITitulo.setAlignment(Pos.TOP_CENTER);
-                lblITitulo.setMinHeight(50);
+                HBox titulo = new HBox();
+                HBox.setHgrow(titulo, Priority.ALWAYS);
+                titulo.getChildren().add(lblITitulo);
+                titulo.setAlignment(Pos.CENTER);
 
                 tfNombre = new JFXTextField();
                 tfNombre.setPromptText("Nombres");
@@ -188,6 +190,129 @@ public class frmCategoria {
         root.getChildren().add(fondo);
     }
 
+    private void formBuscar(AnchorPane root, BorderPane panel) {
+        StackPane fondo = new StackPane();
+        {
+            VBox Contenedor = new VBox(25);
+            {
+                lblITitulo = new Label("BUSCAR CATEGORIA");
+                lblITitulo.setStyle("-fx-text-fill:white;-fx-padding:5"); //Color del Texto
+                HBox titulo = new HBox();
+                HBox.setHgrow(titulo, Priority.ALWAYS);
+                titulo.getChildren().add(lblITitulo);
+                titulo.setAlignment(Pos.CENTER);
+
+                HBox Pbuscador = new HBox();
+                TextField buscador = new TextField("");
+                buscador.setPromptText("Escribe un Nombre");
+                buscador.getStyleClass().add("buscador");
+                buscador.setMinWidth(260);
+                buscador.setMinHeight(30);
+
+                JFXButton btn = new JFXButton("Buscar");
+                btn.setDefaultButton(true);
+                Pbuscador.getChildren().addAll(buscador, btn);
+                Pbuscador.setSpacing(10);
+
+                tfNombre = new JFXTextField();
+                tfNombre.setPromptText("Nombres");
+                tfNombre.setLabelFloat(true);
+                tfNombre.setDisable(true);
+
+                tfDetalle = new JFXTextField();
+                tfDetalle.setPromptText("Detalle");
+                tfDetalle.setLabelFloat(true);
+                tfDetalle.setDisable(true);
+
+                HBox ctnBotones = new HBox(15);
+                {
+                    JFXButton btnModificar = new JFXButton("Modificar");
+                    btnModificar.setDisable(true);
+                    btnModificar.setOnAction((t) -> {
+                        root.getChildren().remove(fondo);
+                        formModificar(root, panel);
+                    });
+                    JFXButton btnEliminar = new JFXButton("Eliminar");
+                    btnEliminar.setDisable(true);
+                    btnEliminar.setOnAction((t) -> {
+                        root.getChildren().remove(fondo);
+                        eliminarBuscado(root, panel);
+                    });
+                    JFXButton btnCancelar = new JFXButton("Cancelar");
+                    btnCancelar.setOnAction((t) -> {
+                        root.getChildren().remove(fondo);
+                    });
+                    btn.setOnAction((t) -> {
+                        ICategoria sqlcategoria = new CategoriaImp();
+                        try {
+                            categoria = sqlcategoria.obtenerNombre(buscador.getText());
+                            tfNombre.setText(categoria.getNombre());
+                            tfDetalle.setText(categoria.getDetalle());
+                            btnEliminar.setDisable(false);
+                            btnModificar.setDisable(false);
+                        } catch (Exception ex) {
+                        }
+                    });
+                    ctnBotones.getChildren().addAll(btnModificar, btnEliminar, btnCancelar);
+                }
+                Contenedor.getChildren().addAll(titulo, Pbuscador, tfNombre, tfDetalle, ctnBotones);
+                Contenedor.getStyleClass().add("panel");
+                Contenedor.getStylesheets().addAll(this.getClass().getResource("estilos/Botones.css").toExternalForm());
+                Contenedor.setPadding(new Insets(15));
+                Contenedor.setStyle("-fx-background-color: rgb(10,20,50)");
+                Contenedor.setMaxSize(400, 270);
+            }
+            fondo.setStyle("-fx-background-color:rgba(25,25,25,0.6)");
+            AnchorPane.setBottomAnchor(fondo, 0.0);
+            AnchorPane.setLeftAnchor(fondo, 0.0);
+            AnchorPane.setTopAnchor(fondo, 0.0);
+            AnchorPane.setRightAnchor(fondo, 0.0);
+            fondo.getChildren().add(Contenedor);
+        }
+        root.getChildren().add(fondo);
+    }
+
+    private void eliminarBuscado(AnchorPane root, BorderPane panel) {
+        StackPane fondo = new StackPane();
+        {
+            lblITitulo = new Label("¿Está seguro de querer eliminar esta Categoria?");
+            lblITitulo.setStyle("-fx-text-fill:white;-fx-padding:5"); //Color del Texto
+            fondo.setStyle("-fx-background-color:rgba(25,25,25,0.6)");
+            VBox Contenedor = new VBox(25);
+            HBox Imagen = new HBox(15);
+            {
+                ImageView advertencia = new ImageView();
+                Imagen.getChildren().add(advertencia);
+                Imagen.setAlignment(Pos.CENTER);
+            }
+            HBox ctnBotones = new HBox(15);
+            {
+                JFXButton btnAceptar = new JFXButton("Aceptar");
+                btnAceptar.setDefaultButton(true);
+                btnAceptar.setOnAction(EliminarActionListener(root, fondo, panel));
+                JFXButton btnCancelar = new JFXButton("Cancelar");
+                btnCancelar.setOnAction((t) -> {
+                    root.getChildren().remove(fondo);
+                });
+                ctnBotones.getChildren().addAll(btnAceptar, btnCancelar);
+                ctnBotones.setAlignment(Pos.CENTER);
+            }
+            Contenedor.getChildren().addAll(Imagen, lblITitulo, ctnBotones);
+            VBox.setVgrow(Imagen, Priority.ALWAYS);
+            Contenedor.getStyleClass().add("panelEliminarBuscado");
+            Contenedor.getStylesheets().addAll(this.getClass().getResource("estilos/Botones.css").toExternalForm());
+            Contenedor.setPadding(new Insets(15));
+            Contenedor.setStyle("-fx-background-color: rgb(10,20,50)");
+            Contenedor.setMaxSize(240, 240);
+            AnchorPane.setBottomAnchor(fondo, 0.0);
+            AnchorPane.setLeftAnchor(fondo, 0.0);
+            AnchorPane.setTopAnchor(fondo, 0.0);
+            AnchorPane.setRightAnchor(fondo, 0.0);
+            fondo.getChildren().add(Contenedor);
+        }
+        root.getChildren().add(fondo);
+    }
+
     public void panelDerecho(AnchorPane root, BorderPane layout) {
         VBox contenedor = new VBox(10);
         //Titutlo
@@ -216,7 +341,9 @@ public class frmCategoria {
         });
         btnEliminar.setDisable(true);
         JFXButton btnBuscar = new JFXButton("Buscar");
-        //btnBuscar.setOnAction(buscarActionListener());
+        btnBuscar.setOnAction((t) -> {
+            formBuscar(root, layout);
+        });
 
         //Contenedor de Botones
         boxButtons.getChildren().addAll(btnBuscar, btnNuevo, btnModificar, btnEliminar);
