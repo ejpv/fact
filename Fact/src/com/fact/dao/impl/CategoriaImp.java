@@ -139,4 +139,28 @@ public class CategoriaImp implements ICategoria {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public Categoria obtenerNombre(String nombre) throws Exception {
+        Categoria categoria = null;
+        String sql = "SELECT codigo_categoria, nombre, detalle"
+                + "  FROM categoria WHERE nombre=?";
+        Conexion con = new Conexion();
+        List<Parametro> lstPar = new ArrayList<>();
+        lstPar.add(new Parametro(1, nombre));
+        try {
+            ResultSet rst = con.ejecutarQuery(sql, lstPar);
+            while (rst.next()) {
+                categoria = new Categoria();
+                categoria.setCodigo(rst.getInt(1));
+                categoria.setNombre(rst.getString(2));
+                categoria.setDetalle(rst.getString(3));
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.desconectar();
+        }
+        return categoria;
+    }
+
 }
