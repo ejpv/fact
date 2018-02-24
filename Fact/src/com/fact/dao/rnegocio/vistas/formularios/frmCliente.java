@@ -12,8 +12,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -357,37 +355,37 @@ public class frmCliente {
                 HBox.setHgrow(titulo, Priority.ALWAYS);
                 titulo.setAlignment(Pos.CENTER);
 
-                tfCedula = new JFXTextField();
+                tfCedula = new JFXTextField(cliente.getCedula());
                 tfCedula.setPromptText("Cédula");
                 tfCedula.setLabelFloat(true);
                 tfCedula.setDisable(true);
 
-                tfNombre = new JFXTextField();
+                tfNombre = new JFXTextField(cliente.getNombre());
                 tfNombre.setPromptText("Nombres");
                 tfNombre.setLabelFloat(true);
                 tfNombre.setDisable(true);
 
-                tfApellido = new JFXTextField();
+                tfApellido = new JFXTextField(cliente.getApellido());
                 tfApellido.setPromptText("Apellidos");
                 tfApellido.setLabelFloat(true);
                 tfApellido.setDisable(true);
 
-                tfDireccion = new JFXTextField();
+                tfDireccion = new JFXTextField(cliente.getDireccion());
                 tfDireccion.setPromptText("Direccion");
                 tfDireccion.setLabelFloat(true);
                 tfDireccion.setDisable(true);
 
-                tfTelefono = new JFXTextField();
+                tfTelefono = new JFXTextField(cliente.getTelefono());
                 tfTelefono.setPromptText("Teléfono");
                 tfTelefono.setLabelFloat(true);
                 tfTelefono.setDisable(true);
 
-                tfEmail = new JFXTextField();
+                tfEmail = new JFXTextField(cliente.getEmail());
                 tfEmail.setPromptText("Email");
                 tfEmail.setLabelFloat(true);
                 tfEmail.setDisable(true);
 
-                tfRuc = new JFXTextField();
+                tfRuc = new JFXTextField(cliente.getRuc());
                 tfRuc.setPromptText("Ruc");
                 tfRuc.setLabelFloat(true);
                 tfRuc.setDisable(true);
