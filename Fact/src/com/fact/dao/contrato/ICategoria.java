@@ -18,6 +18,7 @@ public interface ICategoria {
     int eliminar(Categoria categoria);
     Categoria obtener(int id)throws Exception;
     List<Categoria> obtener()throws Exception;
+    Categoria obtenerNombre(String nombre)throws Exception;
 
     public int eliminar(int codigo);
     
