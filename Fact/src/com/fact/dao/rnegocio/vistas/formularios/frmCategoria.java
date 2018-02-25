@@ -44,11 +44,11 @@ public class frmCategoria {
         {
             VBox Contenedor = new VBox(25);
             {
-                lblITitulo = new Label("INSERTAR CATEGORIA");
+                lblITitulo = new Label("INGRESAR CATEGORIA");
                 lblITitulo.setStyle("-fx-text-fill:white;-fx-padding:5"); //Color del Texto
                 HBox titulo = new HBox();
-                HBox.setHgrow(titulo, Priority.ALWAYS);
                 titulo.getChildren().add(lblITitulo);
+                HBox.setHgrow(titulo, Priority.ALWAYS);
                 titulo.setAlignment(Pos.CENTER);
 
                 tfNombre = new JFXTextField();
@@ -74,7 +74,7 @@ public class frmCategoria {
                     });
                     ctnBotones.getChildren().addAll(btnAceptar, btnLimpiar, btnCancelar);
                 }
-                Contenedor.getChildren().addAll(lblITitulo, tfNombre, tfDetalle, ctnBotones);
+                Contenedor.getChildren().addAll(titulo, tfNombre, tfDetalle, ctnBotones);
                 Contenedor.getStyleClass().add("panel");
                 Contenedor.getStylesheets().addAll(this.getClass().getResource("estilos/Botones.css").toExternalForm());
                 Contenedor.setPadding(new Insets(15));
@@ -203,7 +203,7 @@ public class frmCategoria {
                 titulo.setAlignment(Pos.CENTER);
 
                 HBox Pbuscador = new HBox();
-                TextField buscador = new TextField("");
+                TextField buscador = new TextField();
                 buscador.setPromptText("Escribe un Nombre");
                 buscador.getStyleClass().add("buscador");
                 buscador.setMinWidth(260);

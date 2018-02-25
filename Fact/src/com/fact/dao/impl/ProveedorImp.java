@@ -1,4 +1,3 @@
-
 package com.fact.dao.impl;
 
 import com.fact.accesoadatos.Conexion;
@@ -7,16 +6,16 @@ import com.fact.dao.contrato.IProveedor;
 import com.fact.dao.rnegocio.entidades.Proveedor;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-
-public class ProveedorImp implements IProveedor{
+public class ProveedorImp implements IProveedor {
 
     @Override
     public int insertar(Proveedor proveedor) {
         int numFilasAfectadas = 0;
-        String sql = "INSERT INTO proveedor(codigo_proveedor, nombre, direccion, telefono, \"e-mail\")\n" 
-                +"    VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO proveedor(codigo_proveedor, nombre, direccion, telefono, \"e-mail\")\n"
+                + "    VALUES (?, ?, ?, ?, ?)";
         List<Parametro> lstPar = new ArrayList<>();
         lstPar.add(new Parametro(1, proveedor.getCodigo()));
         lstPar.add(new Parametro(2, proveedor.getNombre()));
@@ -122,7 +121,14 @@ public class ProveedorImp implements IProveedor{
         } finally {
             con.desconectar();
         }
+        
+        lista.sort(new Comparator<Proveedor>() {
+            @Override
+            public int compare(Proveedor cliente1, Proveedor cliente2) {
+                return new Integer(cliente1.getCodigo()).compareTo(cliente2.getCodigo());
+            }
+        });
         return lista;
     }
-    
+
 }

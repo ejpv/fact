@@ -432,7 +432,7 @@ public class frmCliente {
                 titulo.setAlignment(Pos.CENTER);
 
                 HBox Pbuscador = new HBox();
-                TextField buscador = new TextField("080323656-2");
+                TextField buscador = new TextField();
                 buscador.setPromptText("Escribe una Cédula...");
                 buscador.getStyleClass().add("buscador");
                 buscador.setMinWidth(260);

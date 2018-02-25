@@ -1,0 +1,56 @@
+.box .jfx-button {
+    -fx-background-color: rgb(10,20,50);
+    -fx-text-fill:#ffffff;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 5px;
+    -fx-min-width:135px;
+    -fx-min-height:30px;
+}
+.box .jfx-button:focused{
+    -fx-background-color: rgb(8,64,129);
+    -fx-min-width:135px;
+    -fx-min-height:30px;
+}
+.box{
+    -fx-background-image: url('../img/Proveedor.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 35 0;
+    -fx-background-width: 10;
+    -fx-background-color:rgb(255,255,255);
+    -fx-min-width:137px;
+    -fx-min-height:57px;
+}
+
+.mylistview .scroll-bar:horizontal .track,
+.mylistview .scroll-bar:vertical .track{
+    -fx-background-color:rgb(255,255,255);
+    -fx-border-color:rgb(255,255,255);
+    -fx-background-radius: 0em;
+    -fx-border-radius:2em;
+}
+ 
+.mylistview .scroll-bar:horizontal .increment-button ,
+.mylistview .scroll-bar:horizontal .decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 0em;
+    -fx-padding:0 0 10 0;
+}
+ 
+.mylistview .scroll-bar:vertical .increment-button ,
+.mylistview .scroll-bar:vertical .decrement-button {
+    -fx-background-color:transparent;
+    -fx-background-radius: 0em;
+    -fx-padding:0 10 0 0;
+}
+.mylistview  .scroll-bar .increment-arrow,
+.mylistview  .scroll-bar .decrement-arrow{
+    -fx-shape:" ";
+    -fx-padding:0;
+}
+ 
+.mylistview .scroll-bar:horizontal .thumb,
+.mylistview .scroll-bar:vertical .thumb {
+    -fx-background-color:derive(black,90%);
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+}
