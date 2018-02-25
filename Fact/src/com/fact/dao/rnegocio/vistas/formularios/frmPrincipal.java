@@ -25,11 +25,13 @@ public class frmPrincipal{
     static AnchorPane root;
     static BorderPane contenedor;
     static Notificacion Mensaje = new Notificacion();
+    static Empleado empleado=new Empleado();
     private static Stage stage;
     static frmCliente cliente = new frmCliente();
     static frmCategoria categoria=new frmCategoria();
     
     public void start(Empleado emp) throws Exception {
+        empleado=emp;
         contenedor = new BorderPane();
         contenedor.setTop(panelSuperior());
         AnchorPane.setTopAnchor(contenedor, 0.0);
@@ -38,7 +40,7 @@ public class frmPrincipal{
         AnchorPane.setLeftAnchor(contenedor, 0.0);
         
         root = new AnchorPane();
-        Mensaje.successful("Bienvenido "+emp.getNombre());
+        Mensaje.successful("Bienvenido "+empleado.getNombre());
         Mensaje.toFront();
         root.getChildren().addAll(contenedor,Mensaje);
         Scene scene = new Scene(root, 1200, 650);
@@ -55,6 +57,7 @@ public class frmPrincipal{
     private static HBox panelSuperior() {
         HBox panel = new HBox(15);
         {
+            JFXButton btnInicio = new JFXButton("Inicio");
             JFXButton btnCliente = new JFXButton("Clientes");
             btnCliente.setOnAction(btnClienteActionListener());
             JFXButton btnEmpleado = new JFXButton("Empleados");
@@ -72,7 +75,12 @@ public class frmPrincipal{
             Button btnPerfil = new Button();
             btnPerfil.getStyleClass().add("boton");
             panel.getStyleClass().add("panelSuperior");
-            panel.getChildren().addAll(btnFactura, btnCliente,btnProducto,btnCategoria,btnIva,btnProveedor,btnReportes,btnEmpleado,btnPerfil);
+            if(empleado.getCodigo()!=1){
+                btnEmpleado.setDisable(true);
+                btnReportes.setDisable(true);
+                btnIva.setDisable(true);
+            }
+            panel.getChildren().addAll(btnInicio,btnFactura, btnCliente,btnProducto,btnCategoria,btnProveedor,btnReportes,btnEmpleado,btnIva,btnPerfil);
         }
         return panel;
     }
