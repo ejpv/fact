@@ -1,0 +1,23 @@
+.box .jfx-button {
+    -fx-background-color: rgb(10,20,50);
+    -fx-text-fill:#ffffff;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 5px;
+    -fx-min-width:135px;
+    -fx-min-height:30px;
+}
+.box .jfx-button:focused{
+    -fx-background-color: rgb(8,64,129);
+    -fx-min-width:135px;
+    -fx-min-height:30px;
+}
+
+.box{
+    -fx-background-image: url('../img/Iva.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 35 0;
+    -fx-background-width: 10;
+    -fx-background-color: rgb(10,20,50);
+    -fx-min-width:137px;
+    -fx-min-height:57px;
+}

@@ -7,6 +7,7 @@ import com.fact.dao.contrato.IIva;
 import com.fact.dao.rnegocio.entidades.Iva;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -114,6 +115,12 @@ public class IvaImp implements IIva{
         } finally {
             con.desconectar();
         }
+         lista.sort(new Comparator<Iva>() {
+            @Override
+            public int compare(Iva iva1, Iva iva2) {
+                return new Integer(iva1.getCodigo()).compareTo(iva2.getCodigo());
+            }
+        });
         return lista;
     }
     

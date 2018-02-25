@@ -30,6 +30,7 @@ public class frmPrincipal{
     static frmCliente cliente = new frmCliente();
     static frmCategoria categoria=new frmCategoria();
     static frmProveedor proveedor=new frmProveedor();
+    static frmIva iva =new frmIva();
     
     public void start(Empleado emp) throws Exception {
         empleado=emp;
@@ -72,6 +73,7 @@ public class frmPrincipal{
             JFXButton btnReportes = new JFXButton("Reportes");
             //btnReportes.setOnAction(btnReportesActionListener());
             JFXButton btnIva = new JFXButton("Iva");
+            btnIva.setOnAction(btnIvaActionListener());
             JFXButton btnProveedor = new JFXButton("Proveedor");
             btnProveedor.setOnAction(btnProveedorActionListener());
             Button btnPerfil = new Button();
@@ -111,6 +113,14 @@ public class frmPrincipal{
         EventHandler handler = (t) -> {
             proveedor.panelDerecho(root, contenedor);
             proveedor.crearTabla(contenedor);
+        };
+        return handler;
+    }
+    
+    public static EventHandler btnIvaActionListener() {
+        EventHandler handler = (t) -> {
+            iva.panelDerecho(root, contenedor);
+            iva.crearTabla(contenedor);
         };
         return handler;
     }
