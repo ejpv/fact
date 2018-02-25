@@ -1,11 +1,8 @@
 
 package com.fact.dao.rnegocio.vistas.formularios;
 
-import com.fact.dao.contrato.ICliente;
 import com.fact.dao.contrato.IIva;
-import com.fact.dao.impl.ClienteImp;
 import com.fact.dao.impl.IvaImp;
-import com.fact.dao.rnegocio.entidades.Cliente;
 import com.fact.dao.rnegocio.entidades.Iva;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -54,11 +51,11 @@ public class frmIva {
                 HBox.setHgrow(titulo, Priority.ALWAYS);
                 titulo.setAlignment(Pos.CENTER);
 
-                tfNombre = new JFXTextField();
+                tfNombre = new JFXTextField("10%");
                 tfNombre.setPromptText("Porcentaje");
                 tfNombre.setLabelFloat(true);
 
-                tfPrecio = new JFXTextField();
+                tfPrecio = new JFXTextField("0.1");
                 tfPrecio.setPromptText("Precio");
                 tfPrecio.setLabelFloat(true);
 
@@ -104,7 +101,7 @@ public class frmIva {
         lblTitle.setMinHeight(50);
         //Imagen
         ImageView ivCheck = new ImageView();
-        ivCheck.setFitHeight(100);
+        ivCheck.setFitHeight(50);
         ivCheck.setFitWidth(25);
         ivCheck.setLayoutY(175);
         AnchorPane.setRightAnchor(ivCheck, 25.0);
@@ -122,10 +119,6 @@ public class frmIva {
             formEliminar(root, layout);
         });
         btnEliminar.setDisable(true);
-//        JFXButton btnBuscar = new JFXButton("Buscar");
-//        btnBuscar.setOnAction((t) -> {
-//            //formBuscar(root, layout);
-//        });
 
         //Contenedor de Botones
         boxButtons.getChildren().addAll(btnNuevo, btnModificar, btnEliminar);
@@ -175,7 +168,7 @@ public class frmIva {
         //Porcentaje
         TableColumn<Iva, String> colNombre = new TableColumn<>("Porcentaje");
         colNombre.setMinWidth(100);
-        colNombre.setCellValueFactory(new PropertyValueFactory<>("porcentaje"));
+        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
 
         //Precio
         TableColumn<Iva, Double> colPrecio = new TableColumn<>("Precio");
@@ -268,7 +261,7 @@ public class frmIva {
         {
             VBox Contenedor = new VBox(25);
             {
-                lblITitulo = new Label("ELIMINAR Iva");
+                lblITitulo = new Label("ELIMINAR IVA");
                 lblITitulo.setStyle("-fx-text-fill:white;-fx-padding:5"); //Color del Texto
                 HBox titulo = new HBox();
                 titulo.getChildren().add(lblITitulo);
@@ -348,7 +341,7 @@ public class frmIva {
             try {
                 if (sqlIva.eliminar(iva) > 0) {
                     root.getChildren().remove(fondo);
-                    principal.Mensaje.successful("Iva " + iva.getNombre()+ "% eliminado");
+                    principal.Mensaje.successful("Iva " + iva.getNombre()+ " eliminado");
                     crearTabla(panel);
                 }
             } catch (Exception e) {
@@ -376,4 +369,3 @@ public class frmIva {
         return handler;
     }
 }
-

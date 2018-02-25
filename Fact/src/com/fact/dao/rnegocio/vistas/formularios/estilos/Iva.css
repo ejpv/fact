@@ -15,7 +15,7 @@
 .box{
     -fx-background-image: url('../img/Iva.png');
     -fx-background-repeat: no-repeat;
-    -fx-background-position: 35 0;
+    -fx-background-position: 20 0;
     -fx-background-width: 10;
     -fx-background-color: rgb(10,20,50);
     -fx-min-width:137px;
