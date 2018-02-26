@@ -30,6 +30,7 @@ public class frmPrincipal{
     static frmCliente cliente = new frmCliente();
     static frmCategoria categoria=new frmCategoria();
     static frmProveedor proveedor=new frmProveedor();
+    static frmEmpleado empleadop=new frmEmpleado();
     static frmIva iva =new frmIva();
     static frmProducto producto =new frmProducto();
     
@@ -64,7 +65,7 @@ public class frmPrincipal{
             JFXButton btnCliente = new JFXButton("Clientes");
             btnCliente.setOnAction(btnClienteActionListener());
             JFXButton btnEmpleado = new JFXButton("Empleados");
-            //btnEmpleado.setOnAction(btnEmpleadoActionListener());
+            btnEmpleado.setOnAction(btnEmpleadoActionListener());
             JFXButton btnProducto = new JFXButton("Productos");
             btnProducto.setOnAction(btnProductoActionListener());
             JFXButton btnFactura = new JFXButton("Factúra");
@@ -132,15 +133,15 @@ public class frmPrincipal{
         };
         return handler;
     }
-    /*public static EventHandler btnEmpleadoActionListener() {
+    public static EventHandler btnEmpleadoActionListener() {
         EventHandler handler = (t) -> {
-            empleado.formDatos(root, contenedor);
-            empleado.formTablas(contenedor);
+            empleadop.panelDerecho(root, contenedor);
+            empleadop.crearTabla(contenedor);
         };
         return handler;
     }
 
-    public static EventHandler btnfacturaActionListener() {
+    /*public static EventHandler btnfacturaActionListener() {
         EventHandler handler = (t) -> {
             IFactura sqlFactura = new FacturaImp();
             factura.formFacturacion(contenedor);

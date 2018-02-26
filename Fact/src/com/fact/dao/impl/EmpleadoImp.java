@@ -12,6 +12,7 @@ import com.fact.dao.rnegocio.entidades.Cliente;
 import com.fact.dao.rnegocio.entidades.Empleado;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -132,38 +133,6 @@ public class EmpleadoImp implements IEmpleado {
     }
 
     @Override
-    public List<Empleado> obtener() throws Exception {
-        List<Empleado> lista = new ArrayList<>();
-        String sql = "SELECT codigo, cedula, nombre, apellido, especialidad, direccion, telefono, \n"
-                + "       tipo, usuario, clave\n"
-                + "  FROM public.empleado";
-        Conexion con = new Conexion();
-        try {
-            ResultSet rst = con.ejecutarQuery(sql);
-            while (rst.next()) {
-                Empleado empleado = new Empleado();
-                empleado = new Empleado();
-                empleado.setCodigo(rst.getInt(1));
-                empleado.setCedula(rst.getString(2));
-                empleado.setNombre(rst.getString(3));
-                empleado.setApellido(rst.getString(4));
-                empleado.setEspecialidad(rst.getString(5));
-                empleado.setDireccion(rst.getString(6));
-                empleado.setTelefono(rst.getString(7));
-                empleado.setTipo(rst.getString(8));
-                empleado.setUsuario(rst.getString(9));
-                empleado.setClave(rst.getString(10));
-                lista.add(empleado);
-            }
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            con.desconectar();
-        }
-        return lista;
-    }
-
-    @Override
     public Empleado obtener(String usuario, String contraseña) throws Exception {
         Empleado emp = null;
         String sql = "SELECT codigo, cedula, nombre, apellido, especialidad, direccion, telefono, \n"
@@ -226,6 +195,44 @@ public class EmpleadoImp implements IEmpleado {
             con.desconectar();
         }
         return empleado;
+    }
+
+    @Override
+    public List<Empleado> obtener() throws Exception {
+        List<Empleado> lista = new ArrayList<>();
+        String sql = "SELECT codigo, cedula, nombre, apellido, especialidad, direccion, telefono, \n"
+                + "       tipo, usuario, clave\n"
+                + "  FROM public.empleado";
+        Conexion con = new Conexion();
+        try {
+            ResultSet rst = con.ejecutarQuery(sql);
+            while (rst.next()) {
+                Empleado empleado = new Empleado();
+                empleado = new Empleado();
+                empleado.setCodigo(rst.getInt(1));
+                empleado.setCedula(rst.getString(2));
+                empleado.setNombre(rst.getString(3));
+                empleado.setApellido(rst.getString(4));
+                empleado.setEspecialidad(rst.getString(5));
+                empleado.setDireccion(rst.getString(6));
+                empleado.setTelefono(rst.getString(7));
+                empleado.setTipo(rst.getString(8));
+                empleado.setUsuario(rst.getString(9));
+                empleado.setClave(rst.getString(10));
+                lista.add(empleado);
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            con.desconectar();
+        }
+        lista.sort(new Comparator<Empleado>() {
+            @Override
+            public int compare(Empleado empleado1, Empleado empleado2) {
+                return new Integer(empleado1.getCodigo()).compareTo(empleado2.getCodigo());
+            }
+        });
+        return lista;
     }
 
 }
