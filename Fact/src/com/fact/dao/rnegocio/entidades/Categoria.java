@@ -1,8 +1,7 @@
-
 package com.fact.dao.rnegocio.entidades;
 
-
 public class Categoria {
+
     private int codigo;
     private String nombre;
     private String detalle;
@@ -38,5 +37,10 @@ public class Categoria {
 
     public void setDetalle(String detalle) {
         this.detalle = detalle;
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
     }
 }
