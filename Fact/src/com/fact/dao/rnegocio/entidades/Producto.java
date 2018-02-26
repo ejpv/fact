@@ -6,10 +6,6 @@ import java.util.Date;
 public class Producto {
     private int codigo;
     private String nombre;
-    private String color;
-    private String marca;
-    private double tamaño;
-    private String aroma;
     private Date fechacaducacion;
     private Categoria categoria;
     private double precioventa;
@@ -22,13 +18,9 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(int codigo, String nombre, String color, String marca, double tamaño, String aroma, Date fechacaducacion, Categoria categoria, double precioventa, double precioventacantidad, double stockcantidad, double stock, double preciototalventa, String detalle) {
+    public Producto(int codigo, String nombre, Date fechacaducacion, Categoria categoria, double precioventa, double precioventacantidad, double stockcantidad, double stock, double preciototalventa, String detalle) {
         this.codigo = codigo;
         this.nombre = nombre;
-        this.color = color;
-        this.marca = marca;
-        this.tamaño = tamaño;
-        this.aroma = aroma;
         this.fechacaducacion = fechacaducacion;
         this.categoria = categoria;
         this.precioventa = precioventa;
@@ -53,38 +45,6 @@ public class Producto {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    public double getTamaño() {
-        return tamaño;
-    }
-
-    public void setTamaño(double tamaño) {
-        this.tamaño = tamaño;
-    }
-
-    public String getAroma() {
-        return aroma;
-    }
-
-    public void setAroma(String aroma) {
-        this.aroma = aroma;
     }
 
     public Date getFechacaducacion() {
@@ -150,7 +110,5 @@ public class Producto {
     public void setDetalle(String detalle) {
         this.detalle = detalle;
     }
-
-        
     
 }

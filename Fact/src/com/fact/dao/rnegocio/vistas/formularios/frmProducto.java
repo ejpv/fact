@@ -5,12 +5,15 @@
  */
 package com.fact.dao.rnegocio.vistas.formularios;
 
+import com.fact.dao.contrato.ICategoria;
 import com.fact.dao.contrato.IProducto;
+import com.fact.dao.impl.CategoriaImp;
 import com.fact.dao.impl.ProductoImp;
 import com.fact.dao.rnegocio.entidades.Categoria;
 import com.fact.dao.rnegocio.entidades.Producto;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -34,13 +37,111 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class frmProducto {
-    private static Categoria categoria=new Categoria();
+
+    private JFXTextField tfNombre;
+    private JFXTextField tfFechaCaducidad;
+    private JFXTextField tfCategoria;
+    private JFXTextField tfPrecioVenta;
+    private JFXTextField tfPrecioVentaCantidad;
+    private JFXTextField tfStockCantidad;
+    private JFXTextField tfStock;
+    private JFXTextField tfPrecioTotal;
+    private JFXTextField tfDetalle;
+    private static Categoria categoria = new Categoria();
     private static Producto producto = new Producto();
     private static TableView<Producto> tabla;
     private static JFXButton btnModificar = new JFXButton("Modificar");
     private static JFXButton btnEliminar = new JFXButton("Eliminar");
     static frmPrincipal principal = new frmPrincipal();
     private static Label lblITitulo;
+
+    private void formInsertar(AnchorPane root, BorderPane panel) {
+        StackPane fondo = new StackPane();
+        {
+            VBox Contenedor = new VBox(25);
+            {
+                lblITitulo = new Label("INGRESAR PRODUCTO");
+                lblITitulo.setStyle("-fx-text-fill:white;-fx-padding:5"); //Color del Texto
+                HBox titulo = new HBox();
+                titulo.getChildren().add(lblITitulo);
+                HBox.setHgrow(titulo, Priority.ALWAYS);
+                titulo.setAlignment(Pos.CENTER);
+
+                tfNombre = new JFXTextField();
+                tfNombre.setPromptText("Nombre");
+                tfNombre.setLabelFloat(true);
+
+                tfFechaCaducidad = new JFXTextField();
+                tfFechaCaducidad.setPromptText("Fecha de Caducidad");
+                tfFechaCaducidad.setLabelFloat(true);
+
+                tfCategoria = new JFXTextField();
+                tfCategoria.setPromptText("Categoría");
+                tfCategoria.setLabelFloat(true);
+
+                tfPrecioVenta = new JFXTextField();
+                tfPrecioVenta.setPromptText("Precio Venta");
+                tfPrecioVenta.setLabelFloat(true);
+
+                tfPrecioVentaCantidad = new JFXTextField();
+                tfPrecioVentaCantidad.setPromptText("Precio Venta Cantidad");
+                tfPrecioVentaCantidad.setLabelFloat(true);
+
+                tfStockCantidad = new JFXTextField();
+                tfStockCantidad.setPromptText("Stock Cantidad");
+                tfStockCantidad.setLabelFloat(true);
+
+                tfStock = new JFXTextField();
+                tfStock.setPromptText("Stock");
+                tfStock.setLabelFloat(true);
+
+                tfPrecioTotal = new JFXTextField();
+                tfPrecioTotal.setPromptText("Precio Total");
+                tfPrecioTotal.setLabelFloat(true);
+
+                tfDetalle = new JFXTextField();
+                tfDetalle.setPromptText("Detalle");
+                tfDetalle.setLabelFloat(true);
+
+                HBox ctnBotones = new HBox(15);
+                {
+                    JFXButton btnAceptar = new JFXButton("Aceptar");
+                    btnAceptar.setDefaultButton(true);
+                    btnAceptar.setOnAction(InsertarActionListener(root, fondo, panel));
+                    JFXButton btnCancelar = new JFXButton("Cancelar");
+                    btnCancelar.setOnAction((t) -> {
+                        root.getChildren().remove(fondo);
+                    });
+                    JFXButton btnLimpiar = new JFXButton("Limpiar");
+                    btnLimpiar.setOnAction((t) -> {
+                        tfNombre.setText("");
+                        tfFechaCaducidad.setText("");
+                        tfCategoria.setText("");
+                        tfPrecioVenta.setText("");
+                        tfPrecioVentaCantidad.setText("");
+                        tfStockCantidad.setText("");
+                        tfStock.setText("");
+                        tfPrecioTotal.setText("");
+                        tfDetalle.setText("");
+                    });
+                    ctnBotones.getChildren().addAll(btnAceptar, btnLimpiar, btnCancelar);
+                }
+                Contenedor.getChildren().addAll(titulo, tfNombre, tfFechaCaducidad, tfCategoria, tfPrecioVenta, tfPrecioVentaCantidad, tfStockCantidad, tfStock, tfPrecioTotal, tfDetalle, ctnBotones);
+                Contenedor.getStyleClass().add("panel");
+                Contenedor.getStylesheets().addAll(this.getClass().getResource("estilos/Botones.css").toExternalForm());
+                Contenedor.setPadding(new Insets(15));
+                Contenedor.setStyle("-fx-background-color: rgb(10,20,50)");
+                Contenedor.setMaxSize(400, 270);
+            }
+            fondo.setStyle("-fx-background-color:rgba(25,25,25,0.6)");
+            AnchorPane.setBottomAnchor(fondo, 0.0);
+            AnchorPane.setLeftAnchor(fondo, 0.0);
+            AnchorPane.setTopAnchor(fondo, 0.0);
+            AnchorPane.setRightAnchor(fondo, 0.0);
+            fondo.getChildren().add(Contenedor);
+        }
+        root.getChildren().add(fondo);
+    }
 
     public void panelDerecho(AnchorPane root, BorderPane layout) {
         VBox contenedor = new VBox(10);
@@ -59,7 +160,7 @@ public class frmProducto {
         VBox boxButtons = new VBox(10);
         JFXButton btnNuevo = new JFXButton("Nuevo");
         btnNuevo.setOnAction((t) -> {
-//            formInsertar(root, layout);
+            formInsertar(root, layout);
         });
         btnModificar.setOnAction((t) -> {
 //            formModificar(root, layout);
@@ -81,7 +182,7 @@ public class frmProducto {
         boxButtons.setSpacing(30);
         boxButtons.getStyleClass().add("box");
         VBox.setVgrow(boxButtons, Priority.ALWAYS);
-        boxButtons.getStylesheets().addAll(this.getClass().getResource("estilos/Cliente.css").toExternalForm());
+        boxButtons.getStylesheets().addAll(this.getClass().getResource("estilos/Categoria.css").toExternalForm());
 
         //Contenedor de Botones y Label
         VBox cntTitle = new VBox();
@@ -118,8 +219,8 @@ public class frmProducto {
     }
 
     private static TableView<Producto> Tabla() {
-        tabla = new TableView<Producto>();
-        //Coidgo
+        tabla = new TableView<>();
+        //Codigo
         TableColumn<Producto, String> colCodigo = new TableColumn<>("Codigo");
         colCodigo.setMinWidth(100);
         colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
@@ -129,60 +230,40 @@ public class frmProducto {
         colNombre.setMinWidth(100);
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
 
-        //Color
-        TableColumn<Producto, String> colColor = new TableColumn<>("Color");
-        colColor.setMinWidth(100);
-        colColor.setCellValueFactory(new PropertyValueFactory<>("color"));
-
-        //Marca
-        TableColumn<Producto, String> colMarca = new TableColumn<>("Marca");
-        colMarca.setMinWidth(100);
-        colMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
-
-        //Tamaño
-        TableColumn<Producto, String> colTamaño = new TableColumn<>("Tamaño");
-        colTamaño.setMinWidth(100);
-        colTamaño.setCellValueFactory(new PropertyValueFactory<>("tamaño"));
-
-        //Aroma
-        TableColumn<Producto, String> colAroma = new TableColumn<>("Aroma");
-        colAroma.setMinWidth(100);
-        colAroma.setCellValueFactory(new PropertyValueFactory<>("aroma"));
-
         //Fecha de Caducidad
-        TableColumn<Producto, String> colFechaCaducidad = new TableColumn<>("Fecha de Caducidad");
+        TableColumn<Producto, Date> colFechaCaducidad = new TableColumn<>("Fecha de Caducidad");
         colFechaCaducidad.setMinWidth(100);
-        colFechaCaducidad.setCellValueFactory(new PropertyValueFactory<>("fecha de caducidad"));
+        colFechaCaducidad.setCellValueFactory(new PropertyValueFactory<>("fechacaducacion"));
 
         //Categoria
-        TableColumn<Producto, String> colCategoria = new TableColumn<>("Categoria");
+        TableColumn<Producto, Categoria> colCategoria = new TableColumn<>("Categoría");
         colCategoria.setMinWidth(100);
         colCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
 
         //Precio Venta
-        TableColumn<Producto, String> colPrecioVenta = new TableColumn<>("Precio Venta");
+        TableColumn<Producto, Double> colPrecioVenta = new TableColumn<>("Precio Venta");
         colPrecioVenta.setMinWidth(100);
-        colPrecioVenta.setCellValueFactory(new PropertyValueFactory<>("precio venta"));
+        colPrecioVenta.setCellValueFactory(new PropertyValueFactory<>("precioventa"));
 
         //Precio Venta Cantidad
-        TableColumn<Producto, String> colPrecioVentaCantidad = new TableColumn<>("Precio Venta por Cantidad");
+        TableColumn<Producto, Double> colPrecioVentaCantidad = new TableColumn<>("Precio Venta por Cantidad");
         colPrecioVentaCantidad.setMinWidth(100);
-        colPrecioVentaCantidad.setCellValueFactory(new PropertyValueFactory<>("precio venta por cantidad"));
+        colPrecioVentaCantidad.setCellValueFactory(new PropertyValueFactory<>("precioventacantidad"));
 
         //Stock Cantidad
-        TableColumn<Producto, String> colStockCantidad = new TableColumn<>("Stock Cantidad");
+        TableColumn<Producto, Double> colStockCantidad = new TableColumn<>("Stock Cantidad");
         colStockCantidad.setMinWidth(100);
-        colStockCantidad.setCellValueFactory(new PropertyValueFactory<>("stock cantidad"));
+        colStockCantidad.setCellValueFactory(new PropertyValueFactory<>("stockcantidad"));
 
         //Stock 
-        TableColumn<Producto, String> colStock = new TableColumn<>("Stock");
+        TableColumn<Producto, Double> colStock = new TableColumn<>("Stock");
         colStock.setMinWidth(100);
         colStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
 
         //Precio Total
-        TableColumn<Producto, String> colPrecioTotal = new TableColumn<>("Precio Total");
+        TableColumn<Producto, Double> colPrecioTotal = new TableColumn<>("Precio Total");
         colPrecioTotal.setMinWidth(100);
-        colPrecioTotal.setCellValueFactory(new PropertyValueFactory<>("precio total"));
+        colPrecioTotal.setCellValueFactory(new PropertyValueFactory<>("preciototalventa"));
 
         //Detalle
         TableColumn<Producto, String> colDetalle = new TableColumn<>("Detalle");
@@ -192,7 +273,7 @@ public class frmProducto {
         tabla.setItems(getProducto());
         tabla.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        tabla.getColumns().addAll(colCodigo, colNombre, colColor, colMarca, colTamaño, colAroma, colFechaCaducidad, colCategoria, colPrecioVenta, colPrecioVentaCantidad, colStockCantidad, colStock, colPrecioTotal, colDetalle);
+        tabla.getColumns().addAll(colCodigo, colNombre, colFechaCaducidad, colCategoria, colPrecioVenta, colPrecioVentaCantidad, colStockCantidad, colStock, colPrecioTotal, colDetalle);
         tabla.setOnMouseClicked(new EventHandler() {
             @Override
             public void handle(Event t) {
@@ -219,5 +300,42 @@ public class frmProducto {
 
         }
         return lst;
+    }
+
+    /**
+     * *************************************************************************
+     *                                                                         *
+     * IMPLEMENTACION DE LOS EVETOS * *
+     * *************************************************************************
+     */
+    private EventHandler InsertarActionListener(AnchorPane root, StackPane fondo, BorderPane panel) {
+        EventHandler handler = (t) -> {
+            IProducto sqlProducto = new ProductoImp();
+
+            try {
+                Categoria catego = new Categoria();
+                ICategoria cat = new CategoriaImp();
+                List<Producto> lst = new ArrayList<>();
+                lst = sqlProducto.obtener();
+                producto.setCodigo(lst.get(lst.size() - 1).getCodigo() + 1);
+                producto.setNombre(tfNombre.getText());
+                producto.setFechacaducacion(Date.valueOf(tfFechaCaducidad.getText()));
+                producto.setCategoria(cat.obtener(Integer.parseInt(tfCategoria.getText())));
+                producto.setPrecioventa(Double.parseDouble(tfPrecioVenta.getText()));
+                producto.setPrecioventacantidad(Double.parseDouble(tfPrecioVentaCantidad.getText()));
+                producto.setStockcantidad(Double.parseDouble(tfStockCantidad.getText()));
+                producto.setStock(Double.parseDouble(tfStock.getText()));
+                producto.setPreciototalventa(Double.parseDouble(tfPrecioTotal.getText()));
+                producto.setDetalle(tfDetalle.getText());
+                if (sqlProducto.insertar(producto) > 0) {
+                    root.getChildren().remove(fondo);
+                    principal.Mensaje.successful("Nuevo producto Ingresado");
+                    crearTabla(panel);
+                }
+            } catch (Exception e) {
+                principal.Mensaje.failed("Error al Ingresar Producto!");
+            }
+        };
+        return handler;
     }
 }
