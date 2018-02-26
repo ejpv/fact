@@ -8,6 +8,7 @@ import com.fact.dao.rnegocio.entidades.Iva;
 import com.fact.dao.rnegocio.entidades.Producto;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ProductoImp implements IProducto {
@@ -173,6 +174,12 @@ public class ProductoImp implements IProducto {
         } finally {
             con.desconectar();
         }
+        lista.sort(new Comparator<Producto>() {
+            @Override
+            public int compare(Producto producto1, Producto producto2) {
+                return new Integer(producto1.getCodigo()).compareTo(producto2.getCodigo());
+            }
+        });
         return lista;
     }
 
