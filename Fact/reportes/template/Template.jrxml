@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Template" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="045121bf-cb58-429c-80cc-a26b11d51010">
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<group name="Group1">
+		<groupHeader>
+			<band height="30">
+				<textField>
+					<reportElement x="0" y="0" width="100" height="30" uuid="3782ed3d-eed6-4301-966e-51e2745393a9"/>
+					<textFieldExpression><![CDATA["GroupField"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band height="800" splitType="Stretch">
+			<image>
+				<reportElement x="25" y="200" width="510" height="400" uuid="93ac56a6-7f0a-47cb-87e5-89d940ad9032"/>
+				<imageExpression><![CDATA["Autolujos marca de agua.png"]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="162" y="20" width="231" height="30" forecolor="#1390D4" uuid="64b3abf5-05a1-4a13-b048-f6a50c135a51"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="24" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Titulo de la Plantilla]]></text>
+			</staticText>
+			<image>
+				<reportElement x="394" y="17" width="162" height="50" uuid="841383b5-23ae-4cdd-a029-966979a40987"/>
+				<imageExpression><![CDATA["2000.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="0" y="7" width="162" height="70" uuid="12c08ff5-0e4b-4f7d-b3a3-c0245be55d89"/>
+				<imageExpression><![CDATA["o_1515096361_231d4d1d79b6f831baed5e4b9f7cdfbc.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="100" height="40" backcolor="#FFFF99" uuid="bf46888e-4ccc-42f6-a2fd-c0e8eab73ab2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Label]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="30" uuid="c381509a-2da9-429b-ba07-4030c837a379"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Field"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="1" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="07a0b22f-6416-4b4d-bb63-ca8abaecd58b"/>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="270" y="0" width="100" height="30" uuid="ac5c2525-3e33-4777-b640-c14e90431f98"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

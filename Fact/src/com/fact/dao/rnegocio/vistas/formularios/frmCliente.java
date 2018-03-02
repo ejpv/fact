@@ -10,6 +10,8 @@ import com.fact.dao.impl.ClienteImp;
 import com.fact.dao.rnegocio.entidades.Cliente;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.NumberValidator;
+import com.jfoenix.validation.RequiredFieldValidator;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -64,9 +66,18 @@ public class frmCliente {
                 HBox.setHgrow(titulo, Priority.ALWAYS);
                 titulo.setAlignment(Pos.CENTER);
 
-                tfCedula = new JFXTextField("000000000-0");
+                RequiredFieldValidator validator = new RequiredFieldValidator();
+                NumberValidator numvalidator = new NumberValidator();
+                
+                tfCedula = new JFXTextField("");
                 tfCedula.setPromptText("Cédula");
                 tfCedula.setLabelFloat(true);
+                tfCedula.getValidators().add(validator);
+                tfCedula.focusedProperty().addListener((ov, t, t1) -> {
+                    if(!t1){
+                        tfCedula.validate();
+                    }
+                });
 
                 tfNombre = new JFXTextField();
                 tfNombre.setPromptText("Nombres");
