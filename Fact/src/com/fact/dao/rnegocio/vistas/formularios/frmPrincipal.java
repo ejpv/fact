@@ -78,15 +78,15 @@ public class frmPrincipal{
             btnIva.setOnAction(btnIvaActionListener());
             JFXButton btnProveedor = new JFXButton("Proveedor");
             btnProveedor.setOnAction(btnProveedorActionListener());
-            Button btnPerfil = new Button();
-            btnPerfil.getStyleClass().add("boton");
+            JFXButton btnPedidos = new JFXButton("Pedidos");
+            //btnPedidos.setOnAction(btnPedidosActionListener());
             panel.getStyleClass().add("panelSuperior");
             if(empleado.getCodigo()!=1){
                 btnEmpleado.setDisable(true);
                 btnReportes.setDisable(true);
                 btnIva.setDisable(true);
             }
-            panel.getChildren().addAll(btnInicio,btnFactura, btnCliente,btnProducto,btnCategoria,btnProveedor,btnReportes,btnEmpleado,btnIva,btnPerfil);
+            panel.getChildren().addAll(btnInicio,btnFactura, btnCliente,btnProveedor,btnPedidos,btnProducto,btnCategoria,btnReportes,btnEmpleado,btnIva);
         }
         return panel;
     }
@@ -97,6 +97,15 @@ public class frmPrincipal{
      * IMPLEMENTACION DE LOS EVETOS * *
      * *************************************************************************
      */
+    
+    /*public static EventHandler btnPedidosActionListener() {
+        EventHandler handler = (t) -> {
+            cliente.panelDerecho(root, contenedor);
+            cliente.crearTabla(contenedor);
+        };
+        return handler;
+    }*/
+    
     public static EventHandler btnClienteActionListener() {
         EventHandler handler = (t) -> {
             cliente.panelDerecho(root, contenedor);

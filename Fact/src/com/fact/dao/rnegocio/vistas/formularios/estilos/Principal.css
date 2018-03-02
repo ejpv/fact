@@ -3,28 +3,13 @@
     -fx-text-fill:#ffffff;
     -fx-background-radius: 0px;
     -fx-background-insets: 0px;
-    -fx-min-width:120px;
+    -fx-min-width:105px;
     -fx-min-height:55px;
 }
 .panelSuperior .jfx-button:focused{
     -fx-background-color: rgb(8,64,129);
-    -fx-min-width:120px;
+    -fx-min-width:105px;
     -fx-min-height:55px;
-}
-
-.panelSuperior .boton{
-    -fx-background-image: url('../img/Ajuste.png');
-    -fx-background-repeat: no-repeat;
-    -fx-min-width:55px;
-    -fx-min-height:55px;
-    -fx-background-color: rgb(10,20,50);
-    -fx-text-fill:#ffffff;
-    -fx-background-radius: 4px;
-    -fx-background-insets: 0px;
-}
-
-.panelSuperior .boton:focused{
-    -fx-background-color: rgb(8,64,129);
 }
 
 .panelSuperior{

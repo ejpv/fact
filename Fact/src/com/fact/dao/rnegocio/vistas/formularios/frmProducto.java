@@ -76,7 +76,7 @@ public class frmProducto {
                     System.out.println(e.getMessage());
                 }
                 cmbCategoria.setItems(FXCollections.observableArrayList(listCategoria));
-                System.out.println(cmbCategoria.getSelectionModel().selectedItemProperty());
+                
                 tfPrecioVenta = new JFXTextField();
                 tfPrecioVenta.setPromptText("Precio Venta");
                 tfPrecioVenta.setLabelFloat(true);
@@ -169,7 +169,7 @@ public class frmProducto {
         boxButtons.setSpacing(30);
         boxButtons.getStyleClass().add("box");
         VBox.setVgrow(boxButtons, Priority.ALWAYS);
-        boxButtons.getStylesheets().addAll(this.getClass().getResource("estilos/Categoria.css").toExternalForm());
+        boxButtons.getStylesheets().addAll(this.getClass().getResource("estilos/Proucto.css").toExternalForm());
 
         //Contenedor de Botones y Label
         VBox cntTitle = new VBox();
@@ -233,7 +233,7 @@ public class frmProducto {
         colStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
 
         //Precio Total
-        TableColumn<Producto, Double> colPrecioTotal = new TableColumn<>("Precio Total");
+        TableColumn<Producto, Double> colPrecioTotal = new TableColumn<>("Valor total Stock");
         colPrecioTotal.setMinWidth(100);
         colPrecioTotal.setCellValueFactory(new PropertyValueFactory<>("preciototalventa"));
 
@@ -286,8 +286,6 @@ public class frmProducto {
             IProducto sqlProducto = new ProductoImp();
 
             try {
-                Categoria catego = new Categoria();
-                ICategoria cat = new CategoriaImp();
                 List<Producto> lst = new ArrayList<>();
                 lst = sqlProducto.obtener();
                 producto.setCodigo(lst.get(lst.size() - 1).getCodigo() + 1);
