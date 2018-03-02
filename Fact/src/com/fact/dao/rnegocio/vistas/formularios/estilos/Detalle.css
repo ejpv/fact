@@ -1,0 +1,39 @@
+.panel {
+    -fx-background-radius:10;
+    -fx-border-width:5;
+    -fx-border-color:rgb(8,64,129);
+    -fx-border-radius:10;
+}
+
+.jfx-button {
+    -fx-background-color: rgb(3, 45, 157);
+    -fx-text-fill:#ffffff;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 5px;
+    -fx-min-width:120px;
+    -fx-min-height:30px;
+}
+.jfx-button:focused{
+    -fx-background-color: rgb(8,64,129);
+    -fx-min-width:120px;
+    -fx-min-height:30px;
+}
+.text-field
+{
+    -fx-prompt-text-fill: Black;
+    -fx-text-fill: Black;
+    -fx-highlight-fill: Black;
+}
+.buscador
+{
+    -fx-prompt-text-fill: Black;
+    -fx-text-fill: Black;
+    -fx-highlight-fill: Black;
+}
+.panelEliminarBuscado {
+    -fx-background-radius:10;
+    -fx-border-width:5;
+    -fx-border-color:rgb(8,64,129);
+    -fx-border-radius:10;
+    -fx-background-width: 5;
+}

@@ -6,21 +6,17 @@ public class DetalleFacturaCliente {
     private Producto producto;
     private int cantidad;
     private double precio;
-    private double subtotal;
-    private Iva iva;
     private double total;
     private FacturaCliente factura;
 
     public DetalleFacturaCliente() {
     }
 
-    public DetalleFacturaCliente(int codigo, Producto producto, int cantidad, double precio, double subtotal, Iva iva, double total, FacturaCliente factura) {
+    public DetalleFacturaCliente(int codigo, Producto producto, int cantidad, double precio, double total, FacturaCliente factura) {
         this.codigo = codigo;
         this.producto = producto;
         this.cantidad = cantidad;
         this.precio = precio;
-        this.subtotal = subtotal;
-        this.iva = iva;
         this.total = total;
         this.factura = factura;
     }
@@ -57,22 +53,6 @@ public class DetalleFacturaCliente {
         this.precio = precio;
     }
 
-    public double getSubtotal() {
-        return subtotal;
-    }
-
-    public void setSubtotal(double subtotal) {
-        this.subtotal = subtotal;
-    }
-
-    public Iva getIva() {
-        return iva;
-    }
-
-    public void setIva(Iva iva) {
-        this.iva = iva;
-    }
-
     public double getTotal() {
         return total;
     }
@@ -88,5 +68,7 @@ public class DetalleFacturaCliente {
     public void setFactura(FacturaCliente factura) {
         this.factura = factura;
     }
+
+    
     
 }

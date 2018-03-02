@@ -34,7 +34,7 @@ public class TDetalleFacturaCliente {
         IIva sqlIva = new IvaImp();
         IProducto sqlProducto = new ProductoImp();
         IDetalleFacturaCliente sqlDFC= new DetalleFacturaClienteImp();
-        DetalleFacturaCliente fact = new DetalleFacturaCliente(100, sqlProducto.obtener(1), 12, 15.5, 13, sqlIva.obtener(1), 123, sqlFC.obtener(1));
+        DetalleFacturaCliente fact = new DetalleFacturaCliente(100, sqlProducto.obtener(1), 12, 15.5, 123, sqlFC.obtener(1));
     //INGRESO
     int ingresados=0;
         try {
@@ -48,7 +48,7 @@ public class TDetalleFacturaCliente {
             obtenido=sqlDFC.obtener(100);
         } catch (Exception e) {
         }
-        System.out.println(obtenido.getTotal()+"   "+obtenido.getFactura().getCliente().getNombre()+"  "+obtenido.getIva().getNombre()+"  "+obtenido.getProducto().getNombre());
+        System.out.println(obtenido.getTotal()+"   "+obtenido.getFactura().getCliente().getNombre()+"   "+obtenido.getProducto().getNombre());
         assertTrue(obtenido!=null);
     //MODIFICAR
     int modificado=0;
@@ -64,7 +64,7 @@ public class TDetalleFacturaCliente {
             lst= sqlDFC.obtener();
             for(DetalleFacturaCliente tmp:lst){
             System.out.println(obtenido.getTotal());
-            System.out.println(obtenido.getFactura().getCliente().getNombre()+"  "+obtenido.getIva().getNombre()+"  "+obtenido.getProducto().getNombre());
+            System.out.println(obtenido.getFactura().getCliente().getNombre()+"   "+obtenido.getProducto().getNombre());
             }
         } catch (Exception e) {
         }
