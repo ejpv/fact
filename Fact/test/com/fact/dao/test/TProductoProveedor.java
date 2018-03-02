@@ -15,6 +15,7 @@ import com.fact.dao.rnegocio.entidades.Producto;
 import com.fact.dao.rnegocio.entidades.ProductoProveedor;
 import com.fact.dao.rnegocio.entidades.Proveedor;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -38,7 +39,7 @@ public class TProductoProveedor {
         IProductoProveedor dao = new ProductoProveedorImp();
         producto = daopro.obtener(1);
         proveedor = daoprov.obtener(1);
-        ProductoProveedor proprov = new ProductoProveedor(codigo, producto, proveedor, 1, 1, 1, 1, "Ninguna");
+        ProductoProveedor proprov = new ProductoProveedor(codigo, producto, proveedor, 1, 1, 1, "Ninguna",new Date());
         //Insertar
         int insertar = 0;
         try {

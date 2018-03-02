@@ -27,18 +27,18 @@ public class ProductoProveedorImp implements IProductoProveedor {
         int numFilasAfectadas = 0;
         String sql = "INSERT INTO public.producto_proveedor(\n"
                 + "            codigo, codigo_producto, codigo_proveedor, precio, cantidad, \n"
-                + "            iva, total, detalle)\n"
+                + "             total, detalle,fecha)\n"
                 + "    VALUES (?, ?, ?, ?, ?, \n"
-                + "            ?, ?, ?);";
+                + "             ?, ?,?);";
         List<Parametro> lstPar = new ArrayList<>();
         lstPar.add(new Parametro(1, productoProveedor.getCodigo()));
         lstPar.add(new Parametro(2, productoProveedor.getProducto().getCodigo()));
         lstPar.add(new Parametro(3, productoProveedor.getProveedor().getCodigo()));
         lstPar.add(new Parametro(4, productoProveedor.getPrecio()));
         lstPar.add(new Parametro(5, productoProveedor.getCantidad()));
-        lstPar.add(new Parametro(6, productoProveedor.getIva()));
-        lstPar.add(new Parametro(7, productoProveedor.getTotal()));
-        lstPar.add(new Parametro(8, productoProveedor.getDetalle()));
+        lstPar.add(new Parametro(6, productoProveedor.getTotal()));
+        lstPar.add(new Parametro(7, productoProveedor.getDetalle()));
+        lstPar.add(new Parametro(8, productoProveedor.getFecha()));
         Conexion con = new Conexion();
         try {
             numFilasAfectadas = con.ejecutaComando(sql, lstPar);
@@ -55,16 +55,16 @@ public class ProductoProveedorImp implements IProductoProveedor {
         int modificado = 0;
         String sql = "UPDATE public.producto_proveedor\n"
                 + "   SET codigo_producto=?, codigo_proveedor=?, precio=?, cantidad=?, \n"
-                + "            iva=?, total=?, detalle=?\n"
+                + "             total=?, detalle=?,fecha=?\n"
                 + " WHERE codigo= ?";
         List<Parametro> prts = new ArrayList<>();
         prts.add(new Parametro(1, productoProveedor.getProducto().getCodigo()));
         prts.add(new Parametro(2, productoProveedor.getProveedor().getCodigo()));
         prts.add(new Parametro(3, productoProveedor.getPrecio()));
         prts.add(new Parametro(4, productoProveedor.getCantidad()));
-        prts.add(new Parametro(5, productoProveedor.getIva()));
-        prts.add(new Parametro(6, productoProveedor.getTotal()));
-        prts.add(new Parametro(7, productoProveedor.getDetalle()));
+        prts.add(new Parametro(5, productoProveedor.getTotal()));
+        prts.add(new Parametro(6, productoProveedor.getDetalle()));
+        prts.add(new Parametro(7, productoProveedor.getFecha()));
         prts.add(new Parametro(8, productoProveedor.getCodigo()));
         Conexion con = new Conexion();
         try {
@@ -99,7 +99,7 @@ public class ProductoProveedorImp implements IProductoProveedor {
         IProducto daopro = new ProductoImp();
         IProveedor daoprov = new ProveedorImp();
         String sql = "SELECT codigo, codigo_producto, codigo_proveedor, precio, cantidad, \n"
-                + "       iva, total, detalle\n"
+                + "       total, detalle, fecha\n"
                 + "  FROM public.producto_proveedor WHERE codigo=?";
         Conexion con = new Conexion();
         List<Parametro> lstPar = new ArrayList<>();
@@ -113,9 +113,9 @@ public class ProductoProveedorImp implements IProductoProveedor {
                 fac.setProveedor(daoprov.obtener(rst.getInt(3)));
                 fac.setPrecio(rst.getDouble(4));
                 fac.setCantidad(rst.getInt(5));
-                fac.setIva(rst.getDouble(6));
-                fac.setTotal(rst.getDouble(7));
-                fac.setDetalle(rst.getString(8));
+                fac.setTotal(rst.getDouble(6));
+                fac.setDetalle(rst.getString(7));
+                fac.setFecha(rst.getDate(8));
             }
         } catch (Exception e) {
             throw e;
@@ -131,7 +131,7 @@ public class ProductoProveedorImp implements IProductoProveedor {
         IProducto producto = new ProductoImp();
         IProveedor proveedor = new ProveedorImp();
         String sql = "SELECT codigo, codigo_producto, codigo_proveedor, precio, cantidad, \n"
-                + "       iva, total, detalle\n"
+                + "       total, detalle, fecha\n"
                 + "  FROM public.producto_proveedor";
         Conexion con = new Conexion();
         try {
@@ -143,9 +143,9 @@ public class ProductoProveedorImp implements IProductoProveedor {
                 fac.setProveedor(proveedor.obtener(rst.getInt(3)));
                 fac.setPrecio(rst.getDouble(4));
                 fac.setCantidad(rst.getInt(5));
-                fac.setIva(rst.getDouble(6));
-                fac.setTotal(rst.getDouble(7));
-                fac.setDetalle(rst.getString(8));
+                fac.setTotal(rst.getDouble(6));
+                fac.setDetalle(rst.getString(7));
+                fac.setFecha(rst.getDate(8));
                 lista.add(fac);
             }
         } catch (Exception e) {
