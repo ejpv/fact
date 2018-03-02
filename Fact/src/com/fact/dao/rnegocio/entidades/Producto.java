@@ -1,16 +1,15 @@
-
 package com.fact.dao.rnegocio.entidades;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Producto {
+
+    private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     private int codigo;
     private String nombre;
-    private Date fechacaducacion;
     private Categoria categoria;
     private double precioventa;
-    private double precioventacantidad;
-    private double stockcantidad;
     private double stock;
     private double preciototalventa;
     private String detalle;
@@ -18,14 +17,11 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(int codigo, String nombre, Date fechacaducacion, Categoria categoria, double precioventa, double precioventacantidad, double stockcantidad, double stock, double preciototalventa, String detalle) {
+    public Producto(int codigo, String nombre, Categoria categoria, double precioventa, double stock, double preciototalventa, String detalle) {
         this.codigo = codigo;
         this.nombre = nombre;
-        this.fechacaducacion = fechacaducacion;
         this.categoria = categoria;
         this.precioventa = precioventa;
-        this.precioventacantidad = precioventacantidad;
-        this.stockcantidad = stockcantidad;
         this.stock = stock;
         this.preciototalventa = preciototalventa;
         this.detalle = detalle;
@@ -47,14 +43,6 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public Date getFechacaducacion() {
-        return fechacaducacion;
-    }
-
-    public void setFechacaducacion(Date fechacaducacion) {
-        this.fechacaducacion = fechacaducacion;
-    }
-
     public Categoria getCategoria() {
         return categoria;
     }
@@ -69,22 +57,6 @@ public class Producto {
 
     public void setPrecioventa(double precioventa) {
         this.precioventa = precioventa;
-    }
-
-    public double getPrecioventacantidad() {
-        return precioventacantidad;
-    }
-
-    public void setPrecioventacantidad(double precioventacantidad) {
-        this.precioventacantidad = precioventacantidad;
-    }
-
-    public double getStockcantidad() {
-        return stockcantidad;
-    }
-
-    public void setStockcantidad(double stockcantidad) {
-        this.stockcantidad = stockcantidad;
     }
 
     public double getStock() {
@@ -110,5 +82,7 @@ public class Producto {
     public void setDetalle(String detalle) {
         this.detalle = detalle;
     }
+
+    
     
 }
