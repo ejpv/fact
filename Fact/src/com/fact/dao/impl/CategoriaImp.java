@@ -133,12 +133,7 @@ public class CategoriaImp implements ICategoria {
         return lista;
 
     }
-
-    @Override
-    public int eliminar(int codigo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    
     @Override
     public Categoria obtenerNombre(String nombre) throws Exception {
         Categoria categoria = null;

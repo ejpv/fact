@@ -39,6 +39,7 @@ import javafx.stage.Stage;
 
 public class frmProducto {
 
+    private JFXTextField tfCategoria;
     private JFXTextField tfNombre;
     private JFXComboBox<Categoria> cmbCategoria = new JFXComboBox<>();
     private JFXTextField tfPrecioVenta;
@@ -76,7 +77,9 @@ public class frmProducto {
                     System.out.println(e.getMessage());
                 }
                 cmbCategoria.setItems(FXCollections.observableArrayList(listCategoria));
-                
+                cmbCategoria.setPromptText("Categoria");
+                cmbCategoria.setLabelFloat(true);
+
                 tfPrecioVenta = new JFXTextField();
                 tfPrecioVenta.setPromptText("Precio Venta");
                 tfPrecioVenta.setLabelFloat(true);
@@ -130,6 +133,257 @@ public class frmProducto {
         root.getChildren().add(fondo);
     }
 
+    public void formModificar(AnchorPane root, BorderPane panel) {
+        StackPane fondo = new StackPane();
+        {
+            VBox Contenedor = new VBox(25);
+            {
+                lblITitulo = new Label("MODIFICAR PRODUCTO");
+                lblITitulo.setStyle("-fx-text-fill:white;-fx-padding:5"); //Color del Texto
+                HBox titulo = new HBox();
+                titulo.getChildren().add(lblITitulo);
+                HBox.setHgrow(titulo, Priority.ALWAYS);
+                titulo.setAlignment(Pos.CENTER);
+
+                tfNombre = new JFXTextField(producto.getNombre());
+                tfNombre.setPromptText("Nombre");
+                tfNombre.setLabelFloat(true);
+
+                cmbCategoria = new JFXComboBox<>();
+                try {
+                    listCategoria = DaoCategoria.obtener();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                cmbCategoria.setItems(FXCollections.observableArrayList(listCategoria));
+                cmbCategoria.setPromptText("Categoria");
+                cmbCategoria.setLabelFloat(true);
+                cmbCategoria.getSelectionModel().clearAndSelect(producto.getCategoria().getCodigo() - 1);
+
+                tfPrecioVenta = new JFXTextField(String.valueOf(producto.getPrecioventa()));
+                tfPrecioVenta.setPromptText("Precio Venta");
+                tfPrecioVenta.setLabelFloat(true);
+
+                tfStock = new JFXTextField(String.valueOf(producto.getStock()));
+                tfStock.setPromptText("Stock");
+                tfStock.setLabelFloat(true);
+
+                tfPrecioTotal = new JFXTextField(String.valueOf(producto.getPreciototalventa()));
+                tfPrecioTotal.setPromptText("Precio Total");
+                tfPrecioTotal.setLabelFloat(true);
+
+                tfDetalle = new JFXTextField(producto.getDetalle());
+                tfDetalle.setPromptText("Precio Total");
+                tfDetalle.setLabelFloat(true);
+
+                HBox ctnBotones = new HBox(15);
+                {
+                    JFXButton btnAceptar = new JFXButton("Aceptar");
+                    btnAceptar.setDefaultButton(true);
+                    btnAceptar.setOnAction(ModificarActionListener(root, fondo, panel));
+                    JFXButton btnCancelar = new JFXButton("Cancelar");
+                    btnCancelar.setOnAction((t) -> {
+                        root.getChildren().remove(fondo);
+                    });
+                    ctnBotones.getChildren().addAll(btnAceptar, btnCancelar);
+                    ctnBotones.setAlignment(Pos.CENTER);
+                }
+                Contenedor.getChildren().addAll(titulo, tfNombre, cmbCategoria, tfPrecioVenta, tfStock, tfPrecioTotal, tfDetalle, ctnBotones);
+                Contenedor.getStyleClass().add("panel");
+                Contenedor.getStylesheets().addAll(this.getClass().getResource("estilos/Botones.css").toExternalForm());
+                Contenedor.setPadding(new Insets(15));
+                Contenedor.setStyle("-fx-background-color: rgb(10,20,50)");
+                Contenedor.setMaxSize(400, 270);
+            }
+            fondo.setStyle("-fx-background-color:rgba(25,25,25,0.6)");
+            AnchorPane.setBottomAnchor(fondo, 0.0);
+            AnchorPane.setLeftAnchor(fondo, 0.0);
+            AnchorPane.setTopAnchor(fondo, 0.0);
+            AnchorPane.setRightAnchor(fondo, 0.0);
+            fondo.getChildren().add(Contenedor);
+        }
+        root.getChildren().add(fondo);
+    }
+
+    private void formEliminar(AnchorPane root, BorderPane panel) {
+        StackPane fondo = new StackPane();
+        {
+            VBox Contenedor = new VBox(25);
+            {
+                lblITitulo = new Label("ELIMINAR PRODUCTO");
+                lblITitulo.setStyle("-fx-text-fill:white;-fx-padding:5"); //Color del Texto
+                HBox titulo = new HBox();
+                titulo.getChildren().add(lblITitulo);
+                HBox.setHgrow(titulo, Priority.ALWAYS);
+                titulo.setAlignment(Pos.CENTER);
+
+                tfNombre = new JFXTextField(producto.getNombre());
+                tfNombre.setPromptText("Porcentaje");
+                tfNombre.setLabelFloat(true);
+                tfNombre.setDisable(true);
+
+                cmbCategoria = new JFXComboBox<>();
+                try {
+                    listCategoria = DaoCategoria.obtener();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                cmbCategoria.setItems(FXCollections.observableArrayList(listCategoria));
+                cmbCategoria.setPromptText("Categoria");
+                cmbCategoria.setLabelFloat(true);
+                cmbCategoria.getSelectionModel().clearAndSelect(producto.getCategoria().getCodigo() - 1);
+
+                tfPrecioVenta = new JFXTextField(String.valueOf(producto.getPrecioventa()));
+                tfPrecioVenta.setPromptText("Precio Venta");
+                tfPrecioVenta.setLabelFloat(true);
+
+                tfStock = new JFXTextField(String.valueOf(producto.getStock()));
+                tfStock.setPromptText("Stock");
+                tfStock.setLabelFloat(true);
+
+                tfPrecioTotal = new JFXTextField(String.valueOf(producto.getPreciototalventa()));
+                tfPrecioTotal.setPromptText("Precio Total");
+                tfPrecioTotal.setLabelFloat(true);
+
+                tfDetalle = new JFXTextField(producto.getDetalle());
+                tfDetalle.setPromptText("Precio Total");
+                tfDetalle.setLabelFloat(true);
+
+                HBox ctnBotones = new HBox(15);
+                {
+                    JFXButton btnAceptar = new JFXButton("Aceptar");
+                    btnAceptar.setDefaultButton(true);
+                    btnAceptar.setOnAction(EliminarActionListener(root, fondo, panel));
+                    JFXButton btnCancelar = new JFXButton("Cancelar");
+                    btnCancelar.setOnAction((t) -> {
+                        root.getChildren().remove(fondo);
+                    });
+                    ctnBotones.getChildren().addAll(btnAceptar, btnCancelar);
+                    ctnBotones.setAlignment(Pos.CENTER);
+                }
+                Contenedor.getChildren().addAll(titulo, tfNombre, cmbCategoria, tfPrecioVenta, tfStock, tfPrecioTotal, tfDetalle, ctnBotones);
+                Contenedor.getStyleClass().add("panel");
+                Contenedor.getStylesheets().addAll(this.getClass().getResource("estilos/Botones.css").toExternalForm());
+                Contenedor.setPadding(new Insets(15));
+                Contenedor.setStyle("-fx-background-color: rgb(10,20,50)");
+                Contenedor.setMaxSize(400, 270);
+            }
+            fondo.setStyle("-fx-background-color:rgba(25,25,25,0.6)");
+            AnchorPane.setBottomAnchor(fondo, 0.0);
+            AnchorPane.setLeftAnchor(fondo, 0.0);
+            AnchorPane.setTopAnchor(fondo, 0.0);
+            AnchorPane.setRightAnchor(fondo, 0.0);
+            fondo.getChildren().add(Contenedor);
+        }
+        root.getChildren().add(fondo);
+    }
+
+    private void formBuscar(AnchorPane root, BorderPane panel) {
+        StackPane fondo = new StackPane();
+        {
+            VBox Contenedor = new VBox(25);
+            {
+                lblITitulo = new Label("BUSCAR PRODUCTO");
+                lblITitulo.setStyle("-fx-text-fill:white;-fx-padding:5"); //Color del Texto
+                HBox titulo = new HBox();
+                HBox.setHgrow(titulo, Priority.ALWAYS);
+                titulo.getChildren().add(lblITitulo);
+                titulo.setAlignment(Pos.CENTER);
+
+                HBox Pbuscador = new HBox();
+                TextField buscador = new TextField();
+                buscador.setPromptText("Escribe un Codigo...");
+                buscador.getStyleClass().add("buscador");
+                buscador.setMinWidth(260);
+                buscador.setMinHeight(30);
+
+                JFXButton btn = new JFXButton("Buscar");
+                btn.setDefaultButton(true);
+                Pbuscador.getChildren().addAll(buscador, btn);
+                Pbuscador.setSpacing(10);
+
+                tfNombre = new JFXTextField();
+                tfNombre.setPromptText("Nombre");
+                tfNombre.setLabelFloat(true);
+                tfNombre.setDisable(true);
+                
+                tfCategoria = new JFXTextField();
+                tfCategoria.setPromptText("Categoria");
+                tfCategoria.setLabelFloat(true);
+                tfCategoria.setDisable(true);
+
+                tfPrecioVenta = new JFXTextField();
+                tfPrecioVenta.setPromptText("Precio Venta");
+                tfPrecioVenta.setLabelFloat(true);
+                tfPrecioVenta.setDisable(true);
+
+                tfStock = new JFXTextField();
+                tfStock.setPromptText("Stock");
+                tfStock.setLabelFloat(true);
+                tfStock.setDisable(true);
+
+                tfPrecioTotal = new JFXTextField();
+                tfPrecioTotal.setPromptText("Precio Total");
+                tfPrecioTotal.setLabelFloat(true);
+                tfPrecioTotal.setDisable(true);
+
+                tfDetalle = new JFXTextField();
+                tfDetalle.setPromptText("Detalle");
+                tfDetalle.setLabelFloat(true);
+                tfDetalle.setDisable(true);
+
+                HBox ctnBotones = new HBox(15);
+                {
+                    JFXButton btnModificar = new JFXButton("Modificar");
+                    btnModificar.setDisable(true);
+                    btnModificar.setOnAction((t) -> {
+                        root.getChildren().remove(fondo);
+                        formModificar(root, panel);
+                    });
+                    JFXButton btnEliminar = new JFXButton("Eliminar");
+                    btnEliminar.setDisable(true);
+                    btnEliminar.setOnAction((t) -> {
+                        root.getChildren().remove(fondo);
+                        eliminarBuscado(root, panel);
+                    });
+                    JFXButton btnCancelar = new JFXButton("Cancelar");
+                    btnCancelar.setOnAction((t) -> {
+                        root.getChildren().remove(fondo);
+                    });
+                    btn.setOnAction((t) -> {
+                        IProducto sqlProducto = new ProductoImp();
+                        try {
+                            producto = sqlProducto.obtener(Integer.parseInt(buscador.getText()));
+                            tfNombre.setText(producto.getNombre());
+                            tfCategoria.setText(producto.getCategoria().getNombre());
+                            tfPrecioVenta.setText(String.valueOf(producto.getPrecioventa()));
+                            tfStock.setText(String.valueOf(producto.getStock()));
+                            tfPrecioTotal.setText(String.valueOf(producto.getPreciototalventa()));
+                            tfDetalle.setText(producto.getDetalle());
+                            btnEliminar.setDisable(false);
+                            btnModificar.setDisable(false);
+                        } catch (Exception ex) {
+                        }
+                    });
+                    ctnBotones.getChildren().addAll(btnModificar, btnEliminar, btnCancelar);
+                }
+                Contenedor.getChildren().addAll(titulo, Pbuscador, tfNombre, tfCategoria, tfPrecioVenta, tfStock, tfPrecioTotal, tfDetalle, ctnBotones);
+                Contenedor.getStyleClass().add("panel");
+                Contenedor.getStylesheets().addAll(this.getClass().getResource("estilos/Botones.css").toExternalForm());
+                Contenedor.setPadding(new Insets(15));
+                Contenedor.setStyle("-fx-background-color: rgb(10,20,50)");
+                Contenedor.setMaxSize(400, 270);
+            }
+            fondo.setStyle("-fx-background-color:rgba(25,25,25,0.6)");
+            AnchorPane.setBottomAnchor(fondo, 0.0);
+            AnchorPane.setLeftAnchor(fondo, 0.0);
+            AnchorPane.setTopAnchor(fondo, 0.0);
+            AnchorPane.setRightAnchor(fondo, 0.0);
+            fondo.getChildren().add(Contenedor);
+        }
+        root.getChildren().add(fondo);
+    }
+
     public void panelDerecho(AnchorPane root, BorderPane layout) {
         VBox contenedor = new VBox(10);
         //Titutlo
@@ -150,16 +404,16 @@ public class frmProducto {
             formInsertar(root, layout);
         });
         btnModificar.setOnAction((t) -> {
-//            formModificar(root, layout);
+            formModificar(root, layout);
         });
         btnModificar.setDisable(true);
         btnEliminar.setOnAction((t) -> {
-//            formEliminar(root, layout);
+            formEliminar(root, layout);
         });
         btnEliminar.setDisable(true);
         JFXButton btnBuscar = new JFXButton("Buscar");
         btnBuscar.setOnAction((t) -> {
-//            formBuscar(root, layout);
+            formBuscar(root, layout);
         });
 
         //Contenedor de Botones
@@ -274,13 +528,53 @@ public class frmProducto {
         return lst;
     }
 
+    private void eliminarBuscado(AnchorPane root, BorderPane panel) {
+        StackPane fondo = new StackPane();
+        {
+            lblITitulo = new Label("¿Está seguro de querer eliminar este Producto?");
+            lblITitulo.setStyle("-fx-text-fill:white;-fx-padding:5"); //Color del Texto
+            fondo.setStyle("-fx-background-color:rgba(25,25,25,0.6)");
+            VBox Contenedor = new VBox(25);
+            HBox Imagen = new HBox(15);
+            {
+                ImageView advertencia = new ImageView();
+                Imagen.getChildren().add(advertencia);
+                Imagen.setAlignment(Pos.CENTER);
+            }
+            HBox ctnBotones = new HBox(15);
+            {
+                JFXButton btnAceptar = new JFXButton("Aceptar");
+                btnAceptar.setDefaultButton(true);
+                btnAceptar.setOnAction(EliminarActionListener(root, fondo, panel));
+                JFXButton btnCancelar = new JFXButton("Cancelar");
+                btnCancelar.setOnAction((t) -> {
+                    root.getChildren().remove(fondo);
+                });
+                ctnBotones.getChildren().addAll(btnAceptar, btnCancelar);
+                ctnBotones.setAlignment(Pos.CENTER);
+            }
+            Contenedor.getChildren().addAll(Imagen, lblITitulo, ctnBotones);
+            VBox.setVgrow(Imagen, Priority.ALWAYS);
+            Contenedor.getStyleClass().add("panelEliminarBuscado");
+            Contenedor.getStylesheets().addAll(this.getClass().getResource("estilos/Botones.css").toExternalForm());
+            Contenedor.setPadding(new Insets(15));
+            Contenedor.setStyle("-fx-background-color: rgb(10,20,50)");
+            Contenedor.setMaxSize(240, 240);
+            AnchorPane.setBottomAnchor(fondo, 0.0);
+            AnchorPane.setLeftAnchor(fondo, 0.0);
+            AnchorPane.setTopAnchor(fondo, 0.0);
+            AnchorPane.setRightAnchor(fondo, 0.0);
+            fondo.getChildren().add(Contenedor);
+        }
+        root.getChildren().add(fondo);
+    }
+
     /**
      * *************************************************************************
      *                                                                         *
      * IMPLEMENTACION DE LOS EVETOS * *
      * *************************************************************************
      */
-    
     private EventHandler InsertarActionListener(AnchorPane root, StackPane fondo, BorderPane panel) {
         EventHandler handler = (t) -> {
             IProducto sqlProducto = new ProductoImp();
@@ -306,4 +600,43 @@ public class frmProducto {
         };
         return handler;
     }
+
+    private EventHandler ModificarActionListener(AnchorPane root, StackPane fondo, BorderPane panel) {
+        EventHandler handler = (t) -> {
+            try {
+                IProducto sqlProducto = new ProductoImp();
+                producto.setNombre(tfNombre.getText());
+                producto.setCategoria(cmbCategoria.getSelectionModel().getSelectedItem());
+                producto.setPrecioventa(Double.parseDouble(tfPrecioVenta.getText()));
+                producto.setStock(Double.parseDouble(tfStock.getText()));
+                producto.setPreciototalventa(Double.parseDouble(tfPrecioTotal.getText()));
+                producto.setDetalle(tfDetalle.getText());
+                if (sqlProducto.modificar(producto) > 0) {
+                    root.getChildren().remove(fondo);
+                    principal.Mensaje.successful("Producto Modificado");
+                    crearTabla(panel);
+                }
+            } catch (Exception e) {
+                principal.Mensaje.failed("No se Pudo Modificar el Producto");
+            }
+        };
+        return handler;
+    }
+
+    private EventHandler EliminarActionListener(AnchorPane root, StackPane fondo, BorderPane panel) {
+        IProducto sqlProducto = new ProductoImp();
+        EventHandler h = (t) -> {
+            try {
+                if (sqlProducto.eliminar(producto) > 0) {
+                    root.getChildren().remove(fondo);
+                    principal.Mensaje.successful("Producto " + producto.getNombre() + " eliminado");
+                    crearTabla(panel);
+                }
+            } catch (Exception e) {
+                principal.Mensaje.failed("No se Pudo Eliminar el Producto");
+            }
+        };
+        return h;
+    }
+
 }
