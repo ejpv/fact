@@ -82,7 +82,10 @@ public class Producto {
     public void setDetalle(String detalle) {
         this.detalle = detalle;
     }
-
+    @Override
+    public String toString() {
+        return nombre;
+    }   
     
     
 }
