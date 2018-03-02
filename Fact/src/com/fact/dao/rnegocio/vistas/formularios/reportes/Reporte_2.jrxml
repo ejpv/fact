@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte_2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="045121bf-cb58-429c-80cc-a26b11d51010">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Conexion Fact"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="398"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT nombre,
+	cedula,
+	telefono,
+	max( factura_cliente.total)
+FROM cliente
+	INNER JOIN factura_cliente ON 
+	 cliente.codigo_cliente = factura_cliente.cliente
+	 group by nombre, cedula, telefono]]>
+	</queryString>
+	<field name="nombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nombre"/>
+	</field>
+	<field name="cedula" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="cedula"/>
+	</field>
+	<field name="telefono" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="telefono"/>
+	</field>
+	<field name="max" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="max"/>
+	</field>
+	<background>
+		<band height="800" splitType="Stretch">
+			<image>
+				<reportElement x="25" y="200" width="510" height="400" uuid="93ac56a6-7f0a-47cb-87e5-89d940ad9032"/>
+				<imageExpression><![CDATA["C:\\Users\\acer1\\Documents\\Unach\\5to\\Proyecto\\fact\\Fact\\reportes\\template\\Autolujos marca de agua.png"]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="162" y="7" width="231" height="60" forecolor="#1390D4" uuid="64b3abf5-05a1-4a13-b048-f6a50c135a51"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="24" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Mayor compra por cliente]]></text>
+			</staticText>
+			<image>
+				<reportElement x="394" y="17" width="162" height="50" uuid="841383b5-23ae-4cdd-a029-966979a40987"/>
+				<imageExpression><![CDATA["C:\\Users\\acer1\\Documents\\Unach\\5to\\Proyecto\\fact\\Fact\\reportes\\template\\2000.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="0" y="7" width="162" height="70" uuid="12c08ff5-0e4b-4f7d-b3a3-c0245be55d89"/>
+				<imageExpression><![CDATA["C:\\Users\\acer1\\Documents\\Unach\\5to\\Proyecto\\fact\\Fact\\reportes\\template\\o_1515096361_231d4d1d79b6f831baed5e4b9f7cdfbc.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="138" height="40" backcolor="#FFFF99" uuid="cbd5de34-c57d-4450-9e6b-d023c4707079">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="09b0e80c-38ca-4de5-a3ae-53087e0bf463"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="138" y="0" width="138" height="40" backcolor="#FFFF99" uuid="4c6c0528-0b7a-4232-a53c-863873f65fcd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0bc57056-ca30-4f62-8cc4-a2a4acfc77ab"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cédula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="276" y="0" width="138" height="40" backcolor="#FFFF99" uuid="cc6f9687-d220-43b6-87ec-34d961dd3a2d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2e135f81-4955-4813-b372-5af3a6af2d5e"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Teléfono]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="414" y="0" width="138" height="40" backcolor="#FFFF99" uuid="b166e2db-127d-49a9-a385-17e93038b00c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9cbb4fb7-7f1b-4a55-8e4f-e131ed4c2969"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mayor Compra]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="138" height="30" uuid="89b79a1a-5a1f-4d3e-b608-8ce940162ce2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="09b0e80c-38ca-4de5-a3ae-53087e0bf463"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="138" y="0" width="138" height="30" uuid="509fcd92-8461-4ec0-b32e-11fc36cf544b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0bc57056-ca30-4f62-8cc4-a2a4acfc77ab"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="276" y="0" width="138" height="30" uuid="6e4a6249-2ac1-48d8-95da-ca0f0a8e6c6a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2e135f81-4955-4813-b372-5af3a6af2d5e"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="414" y="0" width="138" height="30" uuid="5b0dc077-cd81-4e67-88e1-6705cb228b9a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9cbb4fb7-7f1b-4a55-8e4f-e131ed4c2969"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{max}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="1" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="07a0b22f-6416-4b4d-bb63-ca8abaecd58b"/>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="270" y="0" width="100" height="30" uuid="ac5c2525-3e33-4777-b640-c14e90431f98"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

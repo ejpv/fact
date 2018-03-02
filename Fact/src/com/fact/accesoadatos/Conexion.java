@@ -13,13 +13,21 @@ import java.util.*;
  * @author usuario
  */
 public class Conexion {
+    
     private Connection con;
-    final String DRIVER = "org.postgresql.Driver";
-    final String URL = "jdbc:postgresql://localhost:5433/fact";
-    final String USUARIO = "postgres";
-    final String CLAVE = "1";
+    final String DRIVER ;
+    final String URL;
+    final String USUARIO;
+    final String CLAVE ;
 
-    public void conectar() {
+    public Conexion() {
+        this.DRIVER="org.postgresql.Driver";
+        this.URL= "jdbc:postgresql://localhost:5433/fact";
+        this.USUARIO= "postgres";
+        this.CLAVE="1";
+    }
+    
+    public Connection conectar() {
         try {
             Class.forName(DRIVER);
             try {
@@ -30,6 +38,7 @@ public class Conexion {
         } catch (ClassNotFoundException e) {
             System.out.println("Error al cargar el driver:" + e.getMessage());
         }
+        return con;
     }
 
     public ResultSet ejecutarQuery(String sql) {
@@ -89,10 +98,6 @@ public class Conexion {
             PreparedStatement pstm = con.prepareStatement(sql);
             for (Parametro prm : lst) {
                 if (prm.getValor() instanceof java.util.Date) {
-//                    java.sql.Date fechaBD;
-//                    java.util.Date fechaOriginal = (java.util.Date) prm.getValor();
-//                    fechaBD = new java.sql.Date(fechaOriginal.getTime());
-//                    pstm.setObject(prm.getPosicion(), fechaBD);
                     pstm.setObject(prm.getPosicion(),
                     new java.sql.Date(((java.util.Date)prm.getValor()).getTime()));
                 } else {

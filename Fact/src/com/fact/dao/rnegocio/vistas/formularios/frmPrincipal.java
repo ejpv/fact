@@ -5,11 +5,11 @@
  */
 package com.fact.dao.rnegocio.vistas.formularios;
 
+import com.fact.accesoadatos.Conexion;
 import com.fact.dao.rnegocio.entidades.Empleado;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -22,6 +22,7 @@ import javafx.stage.Stage;
  */
 public class frmPrincipal{
 
+    static Conexion con=new Conexion();
     static AnchorPane root;
     static BorderPane contenedor;
     static Notificacion Mensaje = new Notificacion();
@@ -31,6 +32,7 @@ public class frmPrincipal{
     static frmCategoria categoria=new frmCategoria();
     static frmProveedor proveedor=new frmProveedor();
     static frmEmpleado empleadop=new frmEmpleado();
+    static frmReportes reportes= new frmReportes();
     static frmIva iva =new frmIva();
     static frmProducto producto =new frmProducto();
     static frmProductoProveedor pedido =new frmProductoProveedor();
@@ -69,12 +71,12 @@ public class frmPrincipal{
             btnEmpleado.setOnAction(btnEmpleadoActionListener());
             JFXButton btnProducto = new JFXButton("Productos");
             btnProducto.setOnAction(btnProductoActionListener());
-            JFXButton btnFactura = new JFXButton("Factúra");
+            JFXButton btnFactura = new JFXButton("Factura");
             //btnFactura.setOnAction(btnfacturaActionListener());
             JFXButton btnCategoria = new JFXButton("Categoría");
             btnCategoria.setOnAction(btnCategoriaActionListener());
             JFXButton btnReportes = new JFXButton("Reportes");
-            //btnReportes.setOnAction(btnReportesActionListener());
+            btnReportes.setOnAction(btnReportesActionListener());
             JFXButton btnIva = new JFXButton("Iva");
             btnIva.setOnAction(btnIvaActionListener());
             JFXButton btnProveedor = new JFXButton("Proveedor");
@@ -99,13 +101,12 @@ public class frmPrincipal{
      * *************************************************************************
      */
     
-    /*public static EventHandler btnPedidosActionListener() {
+    public static EventHandler btnReportesActionListener() {
         EventHandler handler = (t) -> {
-            cliente.panelDerecho(root, contenedor);
-            cliente.crearTabla(contenedor);
+            reportes.frmMostrar(root, contenedor);
         };
         return handler;
-    }*/
+    }
     public static EventHandler btnPedidosActionListener() {
         EventHandler handler = (t) -> {
             pedido.panelDerecho(root, contenedor);
@@ -113,7 +114,6 @@ public class frmPrincipal{
         };
         return handler;
     }
-    
     public static EventHandler btnClienteActionListener() {
         EventHandler handler = (t) -> {
             cliente.panelDerecho(root, contenedor);
@@ -134,8 +134,7 @@ public class frmPrincipal{
             proveedor.crearTabla(contenedor);
         };
         return handler;
-    }
-    
+    } 
     public static EventHandler btnIvaActionListener() {
         EventHandler handler = (t) -> {
             iva.panelDerecho(root, contenedor);
@@ -157,7 +156,7 @@ public class frmPrincipal{
         };
         return handler;
     }
-
+}
     /*public static EventHandler btnfacturaActionListener() {
         EventHandler handler = (t) -> {
             IFactura sqlFactura = new FacturaImp();
@@ -172,32 +171,4 @@ public class frmPrincipal{
 
         };
         return handler;
-    }
-
-    public static EventHandler btnCategoriaActionListener() {
-        EventHandler handler = (t) -> {
-            categoria.formDatos(root, contenedor);
-            categoria.formTablas(contenedor);
-        };
-        return handler;
-    }
-
-    public static EventHandler btnProductoActionListener() {
-        EventHandler handler = (t) -> {
-            producto.formDatos(root, contenedor);
-            producto.formTablas(contenedor);
-        };
-        return handler;
-    }
-    private static EventHandler<ActionEvent> btnReportesActionListener(){
-        EventHandler handler = (t) -> {
-            try {
-                frmReportes reportes = new frmReportes();
-                reportes.formInsertar(root);
-            } catch (Exception ex) {
-                Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        };
-        return handler;
     }*/
-}
