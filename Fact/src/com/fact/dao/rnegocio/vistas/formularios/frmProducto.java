@@ -169,7 +169,7 @@ public class frmProducto {
         boxButtons.setSpacing(30);
         boxButtons.getStyleClass().add("box");
         VBox.setVgrow(boxButtons, Priority.ALWAYS);
-        boxButtons.getStylesheets().addAll(this.getClass().getResource("estilos/Proucto.css").toExternalForm());
+        boxButtons.getStylesheets().addAll(this.getClass().getResource("estilos/Producto.css").toExternalForm());
 
         //Contenedor de Botones y Label
         VBox cntTitle = new VBox();
