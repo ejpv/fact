@@ -5,6 +5,8 @@
  */
 package com.fact.dao.rnegocio.entidades;
 
+import java.util.Date;
+
 /**
  *
  * @author Angel-Pc
@@ -15,22 +17,22 @@ public class ProductoProveedor {
     private Proveedor proveedor;
     private double precio;
     private int cantidad;
-    private double iva;
     private double total;
     private String detalle;
+    private Date fecha;
 
     public ProductoProveedor() {
     }
 
-    public ProductoProveedor(int codigo, Producto producto, Proveedor proveedor, double precio, int cantidad, double iva, double total, String detalle) {
+    public ProductoProveedor(int codigo, Producto producto, Proveedor proveedor, double precio, int cantidad, double total, String detalle, Date fecha) {
         this.codigo = codigo;
         this.producto = producto;
         this.proveedor = proveedor;
         this.precio = precio;
         this.cantidad = cantidad;
-        this.iva = iva;
         this.total = total;
         this.detalle = detalle;
+        this.fecha = fecha;
     }
 
     public int getCodigo() {
@@ -73,14 +75,6 @@ public class ProductoProveedor {
         this.cantidad = cantidad;
     }
 
-    public double getIva() {
-        return iva;
-    }
-
-    public void setIva(double iva) {
-        this.iva = iva;
-    }
-
     public double getTotal() {
         return total;
     }
@@ -96,6 +90,14 @@ public class ProductoProveedor {
     public void setDetalle(String detalle) {
         this.detalle = detalle;
     }
-    
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
     
 }
