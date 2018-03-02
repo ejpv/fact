@@ -17,3 +17,7 @@
     -fx-min-width:137px;
     -fx-min-height:57px;
 }
+
+.box{
+    -fx-background-image: url('../img/Autolujos2000.png');
+}

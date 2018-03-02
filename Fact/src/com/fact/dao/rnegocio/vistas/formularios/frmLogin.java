@@ -37,7 +37,7 @@ public class frmLogin extends Application{
         Notificacion Mensaje =new Notificacion();
         {
             //Cuadro de texto
-            JFXTextField txUsuario = new JFXTextField("1"); 
+            JFXTextField txUsuario = new JFXTextField(""); 
             txUsuario.setPromptText("Ingrese Usuario");
             txUsuario.setLabelFloat(true);
             txUsuario.setLayoutY(175);
@@ -54,7 +54,7 @@ public class frmLogin extends Application{
             pass.setPromptText("Ingrese Contraseña");
             pass.setLabelFloat(true);
             pass.setLayoutY(175);
-            pass.setText("1");
+            pass.setText("");
             AnchorPane.setBottomAnchor(pass, 80.0);
             AnchorPane.setLeftAnchor(pass, 25.0);
             AnchorPane.setRightAnchor(pass, 25.0);

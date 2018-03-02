@@ -11,6 +11,7 @@ import com.jfoenix.controls.JFXButton;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -40,11 +41,14 @@ public class frmPrincipal{
     public void start(Empleado emp) throws Exception {
         empleado=emp;
         contenedor = new BorderPane();
+        ImageView img = new ImageView();
+        contenedor.setCenter(img);
         contenedor.setTop(panelSuperior());
         AnchorPane.setTopAnchor(contenedor, 0.0);
         AnchorPane.setRightAnchor(contenedor, 0.0);
         AnchorPane.setBottomAnchor(contenedor, 0.0);
         AnchorPane.setLeftAnchor(contenedor, 0.0);
+        contenedor.getStyleClass().add("box");
         
         root = new AnchorPane();
         Mensaje.successful("Bienvenido "+empleado.getNombre());
