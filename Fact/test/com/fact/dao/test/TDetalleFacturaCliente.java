@@ -52,7 +52,7 @@ public class TDetalleFacturaCliente {
         assertTrue(obtenido!=null);
     //MODIFICAR
     int modificado=0;
-        fact.setProducto(sqlProducto.obtener(2));
+        fact.setCantidad(200);
         try {
             modificado=sqlDFC.modificar(fact);
         } catch (Exception e) {

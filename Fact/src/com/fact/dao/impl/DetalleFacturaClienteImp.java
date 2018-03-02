@@ -15,17 +15,16 @@ import java.util.List;
  *
  * @author acer1
  */
-
-public class DetalleFacturaClienteImp implements IDetalleFacturaCliente{
+public class DetalleFacturaClienteImp implements IDetalleFacturaCliente {
 
     @Override
     public int insertar(DetalleFacturaCliente detalleFacturaCliente) {
         int numFilasAfectadas = 0;
-        String sql = "INSERT INTO public.detalle_factura_cliente(\n" +
-"            codigo_detalle_cliente, producto, cantidad, precio, subtotal, \n" +
-"            iva, total, factura)\n" +
-"    VALUES (?, ?, ?, ?, ?, \n" +
-"            ?, ?, ?);";
+        String sql = "INSERT INTO public.detalle_factura_cliente(\n"
+                + "            codigo_detalle_cliente, producto, cantidad, precio, subtotal, \n"
+                + "            iva, total, factura)\n"
+                + "    VALUES (?, ?, ?, ?, ?, \n"
+                + "            ?, ?, ?);";
         List<Parametro> lstPar = new ArrayList<>();
         lstPar.add(new Parametro(1, detalleFacturaCliente.getCodigo()));
         lstPar.add(new Parametro(2, detalleFacturaCliente.getProducto().getCodigo()));
@@ -49,10 +48,10 @@ public class DetalleFacturaClienteImp implements IDetalleFacturaCliente{
     @Override
     public int modificar(DetalleFacturaCliente detalleFacturaCliente) {
         int modificado = 0;
-        String sql = "UPDATE public.detalle_factura_cliente\n" +
-"   SET producto=?, cantidad=?, precio=?, subtotal=?, \n" +
-"       iva=?, total=?, factura=?\n" +
-" WHERE codigo_detalle_cliente=?";
+        String sql = "UPDATE public.detalle_factura_cliente\n"
+                + "   SET  producto=?, cantidad=?, precio=?, subtotal=?, \n"
+                + "       iva=?, total=?, factura=?\n"
+                + " WHERE codigo_detalle_cliente=?;";
         List<Parametro> lstPar = new ArrayList<>();
         lstPar.add(new Parametro(1, detalleFacturaCliente.getProducto().getCodigo()));
         lstPar.add(new Parametro(2, detalleFacturaCliente.getCantidad()));
@@ -74,8 +73,8 @@ public class DetalleFacturaClienteImp implements IDetalleFacturaCliente{
     @Override
     public int eliminar(DetalleFacturaCliente detalleFacturaCliente) {
         int numFilasAfectadas = 0;
-        String sql = "DELETE FROM public.detalle_factura_cliente\n" +
-" WHERE codigo_detalle_cliente=?";
+        String sql = "DELETE FROM public.detalle_factura_cliente\n"
+                + " WHERE codigo_detalle_cliente=?";
         List<Parametro> lstPar = new ArrayList<>();
         lstPar.add(new Parametro(1, detalleFacturaCliente.getCodigo()));
         Conexion con = new Conexion();
@@ -96,9 +95,9 @@ public class DetalleFacturaClienteImp implements IDetalleFacturaCliente{
         IFacturaCliente sqlFC = new FacturaClienteImp();
         IProducto sqlP = new ProductoImp();
         IIva sqlIva = new IvaImp();
-        String sql = "SELECT codigo_detalle_cliente, producto, cantidad, precio, subtotal, \n" +
-"       iva, total, factura\n" +
-"  FROM public.detalle_factura_cliente WHERE codigo_detalle_cliente=?";
+        String sql = "SELECT codigo_detalle_cliente, producto, cantidad, precio, subtotal, \n"
+                + "       iva, total, factura\n"
+                + "  FROM public.detalle_factura_cliente WHERE codigo_detalle_cliente=?";
         Conexion con = new Conexion();
         List<Parametro> lstPar = new ArrayList<>();
         lstPar.add(new Parametro(1, id));
@@ -125,13 +124,13 @@ public class DetalleFacturaClienteImp implements IDetalleFacturaCliente{
 
     @Override
     public List<DetalleFacturaCliente> obtener() throws Exception {
-       List<DetalleFacturaCliente> lst = new ArrayList<>();
+        List<DetalleFacturaCliente> lst = new ArrayList<>();
         IFacturaCliente sqlFC = new FacturaClienteImp();
         IProducto sqlP = new ProductoImp();
         IIva sqlIva = new IvaImp();
-        String sql = "SELECT codigo_detalle_cliente, producto, cantidad, precio, subtotal, \n" +
-"       iva, total, factura\n" +
-"  FROM public.detalle_factura_cliente";
+        String sql = "SELECT codigo_detalle_cliente, producto, cantidad, precio, subtotal, \n"
+                + "       iva, total, factura\n"
+                + "  FROM public.detalle_factura_cliente";
         Conexion con = new Conexion();
         try {
             ResultSet rst = con.ejecutarQuery(sql);
@@ -154,5 +153,5 @@ public class DetalleFacturaClienteImp implements IDetalleFacturaCliente{
         }
         return lst;
     }
-    
+
 }
