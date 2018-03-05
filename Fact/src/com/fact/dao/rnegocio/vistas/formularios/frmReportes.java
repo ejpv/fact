@@ -91,7 +91,7 @@ public class frmReportes {
                 Contenedor.getStylesheets().addAll(this.getClass().getResource("estilos/Botones.css").toExternalForm());
                 Contenedor.setPadding(new Insets(15));
                 Contenedor.setStyle("-fx-background-color: rgb(10,20,50)");
-                Contenedor.setMaxSize(440, 270);
+                Contenedor.setMaxSize(380, 250);
             }
             fondo.setStyle("-fx-background-color:rgba(25,25,25,0.6)");
             AnchorPane.setBottomAnchor(fondo, 0.0);

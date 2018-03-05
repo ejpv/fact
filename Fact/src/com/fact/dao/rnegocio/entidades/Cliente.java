@@ -1,7 +1,7 @@
-
 package com.fact.dao.rnegocio.entidades;
 
 public class Cliente {
+
     private int codigo;
     private String cedula;
     private String nombre;
@@ -88,5 +88,10 @@ public class Cliente {
     public void setRuc(String ruc) {
         this.ruc = ruc;
     }
-    
+
+    @Override
+    public String toString() {
+        return cedula+" "+nombre;
+    }
+
 }

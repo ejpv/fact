@@ -1,21 +1,20 @@
 package com.fact.dao.rnegocio.vistas.formularios;
 
+import com.fact.dao.contrato.ICliente;
 import com.fact.dao.contrato.IDetalleFacturaCliente;
 import com.fact.dao.contrato.IFacturaCliente;
 import com.fact.dao.contrato.IProducto;
+import com.fact.dao.impl.ClienteImp;
 import com.fact.dao.impl.DetalleFacturaClienteImp;
 import com.fact.dao.impl.FacturaClienteImp;
 import com.fact.dao.impl.ProductoImp;
+import com.fact.dao.rnegocio.entidades.Cliente;
 import com.fact.dao.rnegocio.entidades.DetalleFacturaCliente;
 import com.fact.dao.rnegocio.entidades.FacturaCliente;
 import com.fact.dao.rnegocio.entidades.Producto;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +26,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -36,7 +34,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javax.print.DocFlavor;
 
 public class frmFactura {
 
@@ -48,24 +45,23 @@ public class frmFactura {
     private Label lbFactura;
     private TextField jtFactura;
     private Label lbCliente;
-    private TextField jtCliente;
-    private Label lbCedRuc;
-    private TextField jtCedRuc;
+    private JFXComboBox<Cliente> cmbCliente = new JFXComboBox<>();
     private Label lbFecha;
     private TextField jtFecha;
-    private Label lbTelefono;
-    private TextField jtTelefono;
     private Label lbDireccion;
     private TextField jtDireccion;
     List<Producto> lisProducto = new ArrayList<>();
+    List<Cliente> lisCliente = new ArrayList<>();
+    List<FacturaCliente> lisFactura = new ArrayList<>();
+    Producto pro = new Producto();
     IProducto ipro = new ProductoImp();
+    ICliente icliente = new ClienteImp();
     FacturaCliente fac = new FacturaCliente();
     IFacturaCliente ifac = new FacturaClienteImp();
 
     public void panelDerecho(AnchorPane root, BorderPane layout) {
         VBox contenedor = new VBox(10);
-        //Titutlo
-        Label lblTitle = new Label("Ingreso de Detalle");//Titulo de la Ventana Label de (javafx.scene.control.Label)
+        Label lblTitle = new Label("Detalle de la factura");//Titulo de la Ventana Label de (javafx.scene.control.Label)
         lblTitle.setAlignment(Pos.BOTTOM_CENTER);
         lblTitle.setMinHeight(50);
 
@@ -109,12 +105,6 @@ public class frmFactura {
                 tfTotal.setText(String.valueOf(c));
                 cargarTablas();
             });
-            JFXButton btnLimpiar = new JFXButton("Limpiar");
-            btnLimpiar.setOnAction((t) -> {
-                tfCantidad.setText("");
-                tfPrecio.setText("");
-                tfTotal.setText("");
-            });
             ctnBotones.getChildren().addAll(btnAceptar, btnCalular);
         }
         HBox ctnBotones1 = new HBox(15);
@@ -132,9 +122,8 @@ public class frmFactura {
         Contendor.setStyle("-fx-background-color:rgb(0,92,150);-fx-padding:5");
         Contendor.setAlignment(Pos.CENTER);
         Contendor.setSpacing(30);
-        Contendor.getStyleClass().add("box");
+        Contendor.getStyleClass().add("detalle");
         VBox.setVgrow(Contendor, Priority.ALWAYS);
-        Contendor.getStylesheets().addAll(this.getClass().getResource("estilos/Detalle.css").toExternalForm());
 
         //Contenedor de Botones y Label
         VBox cntTitle = new VBox();
@@ -146,6 +135,7 @@ public class frmFactura {
         //Agregado el de arriba al escenario
         contenedor.setStyle("-fx-background-color:white");
         contenedor.getChildren().addAll(cntTitle);
+        contenedor.getStylesheets().addAll(this.getClass().getResource("estilos/Detalle.css").toExternalForm());
         contenedor.setMinWidth(200);
         layout.setRight(contenedor);
     }
@@ -162,32 +152,32 @@ public class frmFactura {
         VBox Contendor = new VBox(10);
 
         //Componentes
-        lbCedRuc = new Label("Ruc7CI:");
-        jtCedRuc = new TextField("");
-
         lbFecha = new Label("Fecha:");
         jtFecha = new TextField("");
-
+        
+        try {
+            lisFactura = ifac.obtener();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
         lbFactura = new Label("Numero de Factura:");
-        jtFactura = new TextField("");
+        jtFactura = new TextField(String.valueOf(lisFactura.get(lisFactura.size()-1).getNumero()+1));
         jtFactura.setDisable(true);
-//        jtFactura.addKeyListener(new KeyAdapter() {
-//        public void keyReleased(KeyEvent evt){
-//                txtCodigoProductoKeyReleased(evt);
-//            }
-//        });
 
         lbCliente = new Label("Cliente:");
-        jtCliente = new TextField("");
+        try {
+            lisCliente = icliente.obtener();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        cmbCliente.setItems(FXCollections.observableArrayList(lisCliente));
 
         lbDireccion = new Label("Direccion:");
-        jtDireccion = new TextField("");
+        jtDireccion = new TextField("Av. Antonio José de Sucre y Febres Cordero");
 
-        JFXButton btnAceptar = new JFXButton("Buscar");
-        JFXButton btnLimpiar = new JFXButton("Limpiar");
-        btnLimpiar.setOnAction((t) -> {
-            jtFecha = new TextField(String.valueOf(new Date()));
-        });
+        JFXButton btnAceptar = new JFXButton("Generar");
+        jtFecha = new TextField(String.valueOf(new Date()));
         btnAceptar.setDefaultButton(true);
         HBox primero = new HBox();
         {
@@ -196,7 +186,7 @@ public class frmFactura {
 
         HBox segundo = new HBox();
         {
-            segundo.getChildren().addAll(lbCedRuc, jtCedRuc, lbCliente, jtCliente, lbDireccion, jtDireccion);
+            segundo.getChildren().addAll(lbCliente, cmbCliente, lbDireccion, jtDireccion);
         }
         primero.setSpacing(60);
         segundo.setSpacing(60);
@@ -204,9 +194,8 @@ public class frmFactura {
         Contendor.setStyle("-fx-background-color:rgb(0,92,150);-fx-padding:5");
         Contendor.setAlignment(Pos.CENTER);
         Contendor.setSpacing(30);
-        Contendor.getStyleClass().add("box");
+        Contendor.getStyleClass().add("detalle");
         VBox.setVgrow(Contendor, Priority.ALWAYS);
-        Contendor.getStylesheets().addAll(this.getClass().getResource("estilos/Detalle.css").toExternalForm());
 
         //Contenedor de Botones y Label
         VBox cntTitle = new VBox();
@@ -218,6 +207,7 @@ public class frmFactura {
         //Agregado el de arriba al escenario
         contenedor.setStyle("-fx-background-color:white");
         contenedor.getChildren().addAll(cntTitle);
+        contenedor.getStylesheets().addAll(this.getClass().getResource("estilos/Detalle.css").toExternalForm());
         contenedor.setMinWidth(200);
         layout.setTop(contenedor);
     }
@@ -227,7 +217,7 @@ public class frmFactura {
     }
 
     public void cargarTablas() {
-        TableView<DetalleFacturaCliente> tabla = Tabla();
+        tabla = Tabla();
         AnchorPane root = new AnchorPane(tabla);
         AnchorPane.setTopAnchor(tabla, 0.0);
         AnchorPane.setBottomAnchor(tabla, 0.0);
@@ -245,22 +235,18 @@ public class frmFactura {
     private static TableView<DetalleFacturaCliente> Tabla() {
         tabla = new TableView<>();
 
-        //Nombre
         TableColumn<DetalleFacturaCliente, Producto> colProducto = new TableColumn<>("Producto");
         colProducto.setMinWidth(100);
         colProducto.setCellValueFactory(new PropertyValueFactory<>("producto"));
 
-        //Categoria
         TableColumn<DetalleFacturaCliente, Double> colCantidad = new TableColumn<>("Cantidad");
         colCantidad.setMinWidth(100);
         colCantidad.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
 
-        //Precio Venta
         TableColumn<DetalleFacturaCliente, Double> colPrecio = new TableColumn<>("Precio");
         colPrecio.setMinWidth(100);
         colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
 
-        //Stock 
         TableColumn<DetalleFacturaCliente, Double> colTotal = new TableColumn<>("Total");
         colTotal.setMinWidth(100);
         colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
@@ -269,11 +255,11 @@ public class frmFactura {
         tabla.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         tabla.getColumns().addAll(colProducto, colCantidad, colPrecio, colTotal);
-    
-    return tabla ;
-}
 
-private static ObservableList<DetalleFacturaCliente> getDetalleFactura() {
+        return tabla;
+    }
+
+    private static ObservableList<DetalleFacturaCliente> getDetalleFactura() {
         ObservableList<DetalleFacturaCliente> lst = FXCollections.observableArrayList();
         IDetalleFacturaCliente sqlProducto = new DetalleFacturaClienteImp();
         try {
@@ -287,18 +273,17 @@ private static ObservableList<DetalleFacturaCliente> getDetalleFactura() {
 
         }
         return lst;
-
     }
 
-private EventHandler InsertarActionListener() {
-    EventHandler h = (t) -> {
-    DetalleFacturaCliente producto=new DetalleFacturaCliente();
+    private EventHandler InsertarActionListener() {
+        EventHandler h = (t) -> {
+            DetalleFacturaCliente producto = new DetalleFacturaCliente();
             IDetalleFacturaCliente sqlProducto = new DetalleFacturaClienteImp();
 
             try {
-                
-                FacturaCliente fac=new FacturaCliente();
-                IFacturaCliente Ifac=new FacturaClienteImp();
+
+                FacturaCliente fac = new FacturaCliente();
+                IFacturaCliente Ifac = new FacturaClienteImp();
                 List<DetalleFacturaCliente> lst = new ArrayList<>();
                 lst = sqlProducto.obtener();
                 producto.setCodigo(lst.get(lst.size() - 1).getCodigo() + 1);
@@ -309,8 +294,8 @@ private EventHandler InsertarActionListener() {
                 producto.setFactura(ifac.obtener(Integer.parseInt(jtFactura.getText())));
                 sqlProducto.insertar(producto);
             } catch (Exception e) {
-        }
-            };
+            }
+        };
         return h;
     }
 }

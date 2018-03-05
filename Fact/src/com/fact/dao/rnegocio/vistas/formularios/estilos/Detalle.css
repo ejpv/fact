@@ -18,11 +18,11 @@
     -fx-min-width:120px;
     -fx-min-height:30px;
 }
-.text-field
+.label
 {
-    -fx-prompt-text-fill: Black;
-    -fx-text-fill: Black;
-    -fx-highlight-fill: Black;
+    -fx-prompt-text-fill: White;
+    -fx-text-fill: White;
+    -fx-highlight-fill: White;
 }
 .buscador
 {
@@ -30,7 +30,7 @@
     -fx-text-fill: Black;
     -fx-highlight-fill: Black;
 }
-.panelEliminarBuscado {
+.detalle {
     -fx-background-radius:10;
     -fx-border-width:5;
     -fx-border-color:rgb(8,64,129);
