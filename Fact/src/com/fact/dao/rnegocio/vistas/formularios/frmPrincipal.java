@@ -37,6 +37,7 @@ public class frmPrincipal{
     static frmIva iva =new frmIva();
     static frmProducto producto =new frmProducto();
     static frmProductoProveedor pedido =new frmProductoProveedor();
+    static frmFactura factura =new frmFactura();
     
     public void start(Empleado emp) throws Exception {
         empleado=emp;
@@ -76,7 +77,7 @@ public class frmPrincipal{
             JFXButton btnProducto = new JFXButton("Productos");
             btnProducto.setOnAction(btnProductoActionListener());
             JFXButton btnFactura = new JFXButton("Factura");
-            //btnFactura.setOnAction(btnfacturaActionListener());
+            btnFactura.setOnAction(btnfacturaActionListener());
             JFXButton btnCategoria = new JFXButton("Categoría");
             btnCategoria.setOnAction(btnCategoriaActionListener());
             JFXButton btnReportes = new JFXButton("Reportes");
@@ -105,12 +106,24 @@ public class frmPrincipal{
      * *************************************************************************
      */
     
+     
+        
     public static EventHandler btnReportesActionListener() {
         EventHandler handler = (t) -> {
             reportes.frmMostrar(root, contenedor);
         };
         return handler;
     }
+    
+    public static EventHandler btnfacturaActionListener() {
+        EventHandler handler = (t) -> {
+            factura.panelDerecho(root, contenedor);
+            factura.panelArriba(root, contenedor);
+            pedido.crearTabla(contenedor);
+        };
+        return handler;
+    }
+    
     public static EventHandler btnPedidosActionListener() {
         EventHandler handler = (t) -> {
             pedido.panelDerecho(root, contenedor);
